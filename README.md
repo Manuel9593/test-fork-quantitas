@@ -1,1 +1,1 @@
-# quantitas
+# Codice sviluppato da quantitas
