@@ -1,0 +1,40 @@
+<template>
+  <NuxtLink
+    :to="to"
+    :title="title"
+  >
+    {{ text }}
+  </NuxtLink>
+</template>
+
+<script>
+export default {
+  name: 'UiLink',
+  props: {
+    to: {
+      type: Object,
+      default () {
+        return {
+          name: 'home'
+        }
+      }
+    },
+    title: {
+      type: String,
+      default: ''
+    },
+    text: {
+      type: String,
+      default: ''
+    }
+  }
+}
+</script>
+
+<style lang="scss">
+.btn:focus {
+  border-color: #ff9900;
+  box-shadow: 0 0 0 2px #ff9900;
+  outline: none;
+}
+</style>

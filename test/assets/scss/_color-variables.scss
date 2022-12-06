@@ -1,0 +1,54 @@
+/*
+ * color-variables.scss
+ * @version 1.0
+ */
+
+$primary-h: 205;
+$primary-s: 38%;
+$primary-b: 34%;
+
+$primary-dark: hsl(205, 37%, 24%);
+$primary-darker: hsl(208, 37%, 19%);
+$primary-light: hsl(180, 42%, 58%);
+$primary-lighter: hsl(179, 40%, 68%);
+
+$secondary: hsl(52, 39%, 85%);
+$secondary-light: hsl(53, 57%, 92%);
+$secondary-lighter: hsl(53, 62%, 95%);
+$secondary-dark: hsl(51, 7%, 58%);
+$secondary-darker: hsl(60, 5%, 35%);
+
+$bg-light: #e5f1fa;
+$white: #FFF;
+$black: #000;
+
+.bg-primary {
+  background-color: #365c77 !important;
+}
+.bg-primary-dark {
+  background-color: $primary-dark !important;
+}
+.bg-primary-darker {
+  background-color: $primary-darker !important;
+}
+.bg-primary-light {
+  background-color: $primary-light !important;
+}
+.bg-primary-lighter {
+  background-color: $primary-lighter;
+}
+.bg-secondary {
+  background-color: $secondary;
+}
+.bg-secondary-dark {
+  background-color: $secondary-dark;
+}
+.bg-secondary-darker {
+  background-color: $secondary-darker;
+}
+.bg-secondary-light {
+  background-color: $secondary-light;
+}
+.bg-secondary-lighter {
+  background-color: $secondary-lighter;
+}
