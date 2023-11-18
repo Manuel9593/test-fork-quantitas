@@ -22,7 +22,7 @@
           <ui-button
             :id="'typology-' + id"
             v-model="checkedTypology"
-            class="btn text-left font-weight-light"
+            class="btn text-start fw-light"
             :text="name"
             @click="submit(slug)"
           />
@@ -129,7 +129,7 @@ export default {
         width: 100%;
       }
     }
-    .btn.text-left {
+    .btn.text-start {
       width: 100%;
     }
   }

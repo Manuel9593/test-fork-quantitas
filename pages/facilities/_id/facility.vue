@@ -1,7 +1,7 @@
 <template>
   <section class="mb-5">
     <header class="my-4">
-      <small class="badge badge-pill badge-dark mb-2 text-capitalize">
+      <small class="badge rounded-pill bg-dark mb-2 text-capitalize">
         {{ facility.typology }}
       </small>
       <h1>
@@ -62,7 +62,7 @@
       v-if="facility.childs"
       class="mt-5"
     >
-      <h2 class="h4 font-weight-light mb-3">
+      <h2 class="h4 fw-light mb-3">
         <b>{{ facility.childs.length }}</b> strutture amministrate da  <i>{{ facility.name }}</i>
       </h2>
       <div class="table-responsive">
@@ -89,7 +89,7 @@
                 </small>
               </th>
               <td class="text-center">
-                <small class="badge badge-pill badge-dark mb-2 text-capitalize">
+                <small class="badge rounded-pill bg-dark mb-2 text-capitalize">
                   {{ child.typology }}
                 </small>
               </td>

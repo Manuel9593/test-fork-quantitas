@@ -7,7 +7,7 @@
     </header>
     <div class="mb-5 search-form-wrapper">
       <ui-search-form />
-      <label class="sr-only">
+      <label class="visually-hidden">
         <b>Cerca per tipo</b>
       </label>
       <ui-chip-list
@@ -107,7 +107,7 @@
         >
           <div class="col">
             <div class="progress-spinner progress-spinner-active m-auto">
-              <span class="sr-only">Caricamento...</span>
+              <span class="visually-hidden">Caricamento...</span>
             </div>
           </div>
         </div>

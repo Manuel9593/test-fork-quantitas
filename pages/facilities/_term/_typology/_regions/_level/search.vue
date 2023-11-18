@@ -4,7 +4,7 @@
       <ui-search-form
         :searched-term="term"
       />
-      <h1 class="my-4 h2 font-weight-light">
+      <h1 class="my-4 h2 fw-light">
         <strong>{{ facilities.length | number }}</strong>
         {{ getPageTitle }}
       </h1>
@@ -91,7 +91,7 @@
     >
       <div class="col">
         <div class="progress-spinner progress-spinner-active m-auto">
-          <span class="sr-only">Caricamento...</span>
+          <span class="visually-hidden">Caricamento...</span>
         </div>
       </div>
     </div>

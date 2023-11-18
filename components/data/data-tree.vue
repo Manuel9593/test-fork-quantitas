@@ -12,7 +12,7 @@
           :class="isOpened(facility.id) ? 'icon-minus': 'icon-plus'"
           :text="'Apri'"
           :title="'Vedi le strutture amministrate da: ' + facility.value"
-          :sr-only="true"
+          :visuallyHidden="true"
           @click="openElement(facility.id)"
         />
       </span>
@@ -32,7 +32,7 @@
       </p>
       <ul
         v-if="isOpened(facility.id)"
-        class="my-3 ml-4"
+        class="my-3 ms-4"
       >
         <li
           v-for="facilitySecond in facility.children"
@@ -41,7 +41,7 @@
         >
           <small>
             <ui-link
-              class="font-weight-normal"
+              class="fw-normal"
               :to="{ name: 'facility', params: { id: facilitySecond.id }}"
               :text="facilitySecond.value"
               :title="'Vedi: ' + facilitySecond.value"

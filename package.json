@@ -7,15 +7,15 @@
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
-    "eslint": "eslint ."
+    "lint": "eslint ."
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/eslint-module": "^3.1.0",
     "@nuxtjs/style-resources": "^1.2.1",
-    "@prisma/client": "^3.15.2",
+    "@prisma/client": "^5.6.0",
     "@ssthouse/vue-tree-chart": "^0.6.8",
-    "bootstrap-italia": "^1.6.4",
+    "bootstrap-italia": "^2.7.6",
     "chart.js": "^2.9.4",
     "core-js": "^3.33.2",
     "express": "^4.18.2",
@@ -34,8 +34,9 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.23.3",
     "@nuxtjs/eslint-config": "^6.0.1",
+    "@vue/runtime-dom": "^3.3.8",
     "eslint": "^7.32.0",
-    "prisma": "^3.15.2",
+    "prisma": "^5.6.0",
     "sass": "^1.69.5",
     "ts-node": "^10.9.1",
     "vue-server-renderer": "^2.6.14",

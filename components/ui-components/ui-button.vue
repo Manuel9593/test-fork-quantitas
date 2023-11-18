@@ -8,8 +8,8 @@
       :class="hasIcon ? icon : ''"
     >
       <span
-        v-if="srOnly"
-        class="sr-only"
+        v-if="visuallyHidden"
+        class="visually-hidden"
       >
         {{ text }}
       </span>
@@ -40,7 +40,7 @@ export default {
       type: Boolean,
       default: false
     },
-    srOnly: {
+    visuallyHidden: {
       type: Boolean,
       default: false
     }

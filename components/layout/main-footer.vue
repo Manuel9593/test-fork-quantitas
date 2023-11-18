@@ -12,7 +12,7 @@
           </p>
         </div>
 
-        <div class="col-12 col-sm text-right">
+        <div class="col-12 col-sm text-end">
           <p class="logo icon icon-mic-logo-white my-3">
             <span>Ministero della cultura</span>
           </p>

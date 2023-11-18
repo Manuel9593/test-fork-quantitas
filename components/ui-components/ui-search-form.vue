@@ -5,8 +5,8 @@
     class="search-form row mx-0 my-3"
   >
     <label
-      class="h5 mt-5"
-      :class="{'sr-only': isInHeader}"
+      class="h5 mt-5 active"
+      :class="{'visually-hidden': isInHeader}"
       for="facility-search"
     >
       <b>Cerca tra le strutture culturali italiane</b>

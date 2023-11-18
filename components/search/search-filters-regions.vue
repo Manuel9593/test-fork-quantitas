@@ -28,7 +28,7 @@
               type="checkbox"
               :value="slug"
             >
-            <label :for="'region-' + id">
+            <label class="active" :for="'region-' + id">
               <small>
                 {{ name }}
               </small>
@@ -43,7 +43,7 @@
               @click="removeRegions()"
             />
           </div>
-          <div class="col text-right">
+          <div class="col text-end">
             <ui-button
               class="btn btn-primary"
               :text="'Filtra (' + checkedRegions.length + ')'"

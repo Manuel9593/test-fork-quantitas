@@ -3,12 +3,12 @@
     <li
       v-for="facility in facilities"
       :key="facility.id"
-      class="col-12 col-sm-6 col-md-4 col-lg-3 mb-5 ml-0"
+      class="col-12 col-sm-6 col-md-4 col-lg-3 mb-5 ms-0"
     >
       <ui-card>
         <template #header>
           <small
-            class="badge badge-pill badge-dark mb-2 text-capitalize"
+            class="badge bg-pill bg-dark mb-2 text-capitalize"
             :title="facility.typology"
           >
             {{ facility.typology | truncate(28) }}

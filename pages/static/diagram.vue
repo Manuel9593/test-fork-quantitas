@@ -19,7 +19,7 @@
     >
       <div class="col">
         <div class="progress-spinner progress-spinner-active m-auto">
-          <span class="sr-only">Caricamento...</span>
+          <span class="visually-hidden">Caricamento...</span>
         </div>
       </div>
     </div>

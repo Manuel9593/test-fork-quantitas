@@ -29,7 +29,7 @@
             </small>
           </th>
           <td class="text-center">
-            <small class="badge badge-pill badge-dark mb-2 text-capitalize">
+            <small class="badge bg-pill bg-dark mb-2 text-capitalize">
               {{ facility.typology }}
             </small>
           </td>

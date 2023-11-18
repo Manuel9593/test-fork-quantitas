@@ -4,7 +4,7 @@
       <h1 v-if="error.statusCode === 404">
         Non vedo la pagina! <br>
         404 <br>
-        <span class="h6 font-weight-light">Non troviamo la pagina che cerchi</span>
+        <span class="h6 fw-light">Non troviamo la pagina che cerchi</span>
       </h1>
       <h1 v-else>
         Oooops! Errore {{ error.statusCode }}
