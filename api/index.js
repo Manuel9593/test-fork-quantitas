@@ -133,11 +133,6 @@ app.get('/facilities-diagram', async (req, res) => {
   res.json(response)
 })
 
-export default {
-  path: '/api',
-  handler: app
-}
-
 app.get('/regions', async (_req, res) => {
   const facilities = await prisma.region.findMany({ })
   res.json(facilities)
@@ -147,3 +142,8 @@ app.get('/typologies', async (_req, res) => {
   const types = await prisma.type.findMany({ })
   res.json(types)
 })
+
+export default {
+  path: '/api',
+  handler: app
+}

@@ -1,8 +1,9 @@
-import Routing from './config/routing.js'
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   // 10.96.1.143' - 08.10.2021
+  dev: process.env.NODE_ENV !== 'production',
   server: { host: '127.0.0.1' },
+  target: 'server',
   head: {
     title: 'icdp-frontend',
     htmlAttrs: {
@@ -18,6 +19,7 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
+  build: { devtools: process.env.NODE_ENV == 'development' },
   loading: {
     color: '#67c1c1',
     height: '5px'
@@ -49,11 +51,9 @@ export default {
     proxy: true // Can be also an object with default options
   },
   proxy: {
-    '/api/v0': { target: 'http://10.96.1.143:3000', pathRewrite: { '^/api/v0': '/api' } } // 08.10.2021
+    '/api/v0': { target: 'http://localhost:3000', pathRewrite: { '^/api/v0': '/api' } } // 08.10.2021
   },
-  serverMiddleware: [
-    '~/api/index.js'
-  ],
+  serverMiddleware: [ '~/api/index.js' ],
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     '@nuxtjs/eslint-module',
@@ -66,12 +66,36 @@ export default {
   ],
   // Http password for staging. `basic-auth-module` configuration
   basic: {
-    name: 'icdp',
-    pass: 'passwordsemplicedaricordare',
+    name: process.env.BASIC_USER,
+    pass: process.env.BASIC_SECRET,
     enabled: process.env.NODE_ENV !== 'development'
   },
-  // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {
-  },
-  router: Routing
+  router: {
+    base: '/',
+    routeNameSplitter: '/',
+    extendRoutes (routes, resolve) {
+      routes.push(
+        {
+          name: 'home',
+          path: '/',
+          component: resolve(__dirname, 'pages/index.vue')
+        },
+        {
+          name: 'diagram',
+          path: '/diagramma',
+          component: resolve(__dirname, 'pages/static/diagram.vue')
+        },
+        {
+          name: 'search',
+          path: '/cerca/:term?/:regions?/:typology?/:level?',
+          component: resolve(__dirname, 'pages/facilities/_term/_typology/_regions/_level/search.vue')
+        },
+        {
+          name: 'facility',
+          path: '/struttura/:id?',
+          component: resolve(__dirname, 'pages/facilities/_id/facility.vue')
+        }
+      )
+    }
+  }
 }

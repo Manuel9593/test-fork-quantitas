@@ -12,7 +12,7 @@
           :class="isOpened(facility.id) ? 'icon-minus': 'icon-plus'"
           :text="'Apri'"
           :title="'Vedi le strutture amministrate da: ' + facility.value"
-          :visuallyHidden="true"
+          :visually-hidden="true"
           @click="openElement(facility.id)"
         />
       </span>

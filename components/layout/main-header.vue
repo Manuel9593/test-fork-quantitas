@@ -7,7 +7,7 @@
             <ui-link
               :to="{ name: 'home' }"
               :title="'Torna alla Homepage'"
-              :text="'Digital Library. Istituo centrale per la digitalizzazione del patrimonio culturale'"
+              :text="'Digital Library. Istituto centrale per la digitalizzazione del patrimonio culturale'"
             />
           </p>
         </div>
