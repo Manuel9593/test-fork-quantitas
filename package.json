@@ -3,19 +3,15 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "nuxt --dotenv=.env.development",
-    "build:dev": "nuxt build --dotenv=.env.development",
-    "build:prod": "nuxt build",
-    "analyze": "nuxt build --analyze --dotenv=.env.development",
-    "start:dev": "nuxt start --dotenv=.env.development",
-    "start:prod": "nuxt start",
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "analyze": "nuxt build --analyze",
+    "start": "nuxt start",
     "generate": "nuxt generate",
     "lint": "eslint ."
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.13.6",
-    "@nuxtjs/eslint-module": "^3.1.0",
-    "@nuxtjs/style-resources": "^1.2.1",
     "@prisma/client": "^5.6.0",
     "@ssthouse/vue-tree-chart": "^0.6.8",
     "bootstrap-italia": "^2.7.6",
@@ -23,27 +19,32 @@
     "express": "^4.18.2",
     "hchs-vue-charts": "^1.2.8",
     "moment": "^2.29.4",
-    "nuxt": "^2.17.2",
     "nuxt-basic-auth-module": "^1.4.1",
-    "typescript": "^4.9.5",
     "v-click-outside": "^3.2.0",
-    "vue-chartjs": "^3.5.1",
-    "vue-router": "^3.6.5",
-    "vue-tree-chart": "^1.2.9"
+    "vue-chartjs": "^3.5.1"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.23.3",
     "@nuxtjs/eslint-config": "^6.0.1",
+    "@nuxtjs/eslint-module": "^3.1.0",
+    "@nuxtjs/style-resources": "^1.2.1",
     "@vue/runtime-dom": "^3.3.8",
     "eslint": "^7.32.0",
+    "nuxt": "^2.17.2",
     "prisma": "^5.6.0",
     "sass": "^1.69.5",
     "sass-loader": "^10.4.1",
     "ts-node": "^10.9.1",
-    "vue-server-renderer": "^2.6.14",
-    "vue-template-compiler": "^2.6.14"
+    "typescript": "^4.9.5",
+    "vue": "^2.7.15",
+    "vue-router": "^3.6.5",
+    "vue-server-renderer": "^2.7.15",
+    "vue-template-compiler": "^2.7.15"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
+  },
+  "optionalDependencies": {
+    "vue-tree-chart": "^1.2.9"
   }
 }
