@@ -6,12 +6,12 @@
     <ui-button
       class="btn btn-select"
       :class="{'btn-select--selected': isTypologyFilterOpen}"
-      :text="buttonText | truncate(24)"
+      :text="buttonText | $truncate(24)"
       @click="openTypologyFilter()"
     />
     <div
       v-if="isTypologyFilterOpen"
-      v-click-outside="openTypologyFilter"
+      v-on-click-outside="openTypologyFilter"
       class="typology-filter-form"
     >
       <ul class="m-0 list-unstyled">
@@ -40,6 +40,11 @@
     </div>
   </div>
 </template>
+
+<script setup>
+import { vOnClickOutside } from '@vueuse/components';
+const { $truncate } = useNuxtApp()
+</script>
 
 <script>
 export default {

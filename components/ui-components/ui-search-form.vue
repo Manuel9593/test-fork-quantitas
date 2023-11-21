@@ -1,16 +1,16 @@
 <template>
   <form
-    action="/cerca/"
+    action="/facilities/"
     method="GET"
     class="search-form row mx-0 my-3"
   >
-  <label
-    class="h5 mt-5 active col-6"
-    :class="{'visually-hidden': isInHeader}"
-    for="facility-search"
-  >
-    <b>Cerca tra le strutture culturali italiane</b>
-  </label>
+    <label
+      class="h5 mt-5 active col-6"
+      :class="{'visually-hidden': isInHeader}"
+      for="facility-search"
+    >
+      <b>Cerca tra le strutture culturali italiane</b>
+    </label>
     <div class="form-group row">
       <div class="search-form-outline col-6">
         <input
@@ -33,7 +33,7 @@
   </form>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   name: 'UiSearchForm',
   props: {
@@ -44,26 +44,21 @@ export default {
     isInHeader: {
       type: Boolean,
       default: false
-    }
+    },
   },
   data () {
     return {
       searchTerm: ''
     }
   },
-  beforeMount () {
-    if (this.searchedTerm) {
-      this.searchTerm = this.searchedTerm
-    }
-  },
   methods: {
-    encodeUriStringMethod (string) {
-      return this.$options.filters.encodeUriString(string, '+')
+    encodeUriStringMethod (string: string) {
+      const { $encodeURIString } = useNuxtApp()
+      return $encodeURIString(string, '+')
     },
     submit () {
-      this.errors = false
       const encodedTerm = this.searchTerm ? this.encodeUriStringMethod(this.searchTerm) : ''
-      return this.$router.push('/cerca/' + encodedTerm)
+      navigateTo({path: `/facilities/${encodedTerm}`})
     }
   }
 }

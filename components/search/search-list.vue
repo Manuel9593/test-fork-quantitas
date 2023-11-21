@@ -11,7 +11,7 @@
             class="badge bg-pill bg-dark mb-2 text-capitalize"
             :title="facility.typology"
           >
-            {{ facility.typology | truncate(28) }}
+            {{ facility.typology | $truncate(28) }}
           </small>
           <h3 class="h5 m-0">
             <b>{{ facility.name }}</b>
@@ -45,6 +45,10 @@
     </li>
   </ul>
 </template>
+
+<script setup>
+const { $truncate } = useNuxtApp()
+</script>
 
 <script>
 export default {

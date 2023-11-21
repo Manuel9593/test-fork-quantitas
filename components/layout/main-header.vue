@@ -27,10 +27,11 @@ export default {
   name: 'MainHeader',
   computed: {
     hasSearchForm () {
+      const route = useRoute()
       if (
-        this.$nuxt.$route.name === 'search' ||
-        this.$nuxt.$route.name === 'index' ||
-        this.$nuxt.$route.name === 'home'
+        route.name === 'search' ||
+        route.name === 'index' ||
+        route.name === 'home'
       ) {
         return false
       } else {

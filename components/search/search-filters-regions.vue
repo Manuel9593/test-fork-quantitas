@@ -11,7 +11,7 @@
     />
     <div
       v-if="isRegionsFilterOpen"
-      v-click-outside="openRegionFilter"
+      :v-on-click-outside="openRegionFilter()"
       class="regions-filter-form"
     >
       <form method="GET">
@@ -57,7 +57,12 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
+import { vOnClickOutside } from '@vueuse/components';
+</script>
+
+<script lang="ts">
+
 export default {
   name: 'SearchFiltersRegions',
   props: {
@@ -84,8 +89,8 @@ export default {
   },
   data () {
     return {
-      checkedRegions: [],
-      isRegionsFilterOpen: false
+      checkedRegions: [] as any[],
+      isRegionsFilterOpen: false as boolean
     }
   },
   computed: {

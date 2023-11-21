@@ -1,7 +1,5 @@
-/*
- * customizer.scss
- * @version 1.0
- */
+@import "./color-variables";
+
 body {
   background-color: $secondary-lighter;
   font-weight: 300;

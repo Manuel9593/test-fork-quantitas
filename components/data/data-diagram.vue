@@ -11,7 +11,7 @@
       >
         <ui-link
           :to="{ name: 'facility', params: { id: node.id }}"
-          :text="node.value | truncate(60)"
+          :text="node.value"
           :title="'Vedi: ' + node.value"
         />
         <span
@@ -23,7 +23,7 @@
   </vue-tree>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   name: 'DataTree',
   props: {

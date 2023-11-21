@@ -24,17 +24,18 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
+useHead({
+  title: 'Oooops! | ICDP - Digital Library'
+})
+</script>
+
+<script lang="ts">
 export default {
   props: {
     error: {
       type: Object,
       default: null
-    }
-  },
-  head () {
-    return {
-      title: 'Oooops! | ICDP - Digital Library'
     }
   }
 }

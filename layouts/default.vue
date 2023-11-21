@@ -1,9 +1,13 @@
 <template>
   <div>
-    <main-header />
+    <MainHeader />
     <main id="main" class="container-fluid">
-      <Nuxt />
+      <slot />
     </main>
-    <main-footer />
+    <MainFooter />
   </div>
 </template>
+
+<script setup lang="ts">
+import { MainHeader, MainFooter } from '#build/components';
+</script>
