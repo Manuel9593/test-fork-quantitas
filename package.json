@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
-    "build": "nuxt build",
-    "analyze": "nuxt build --analyze",
-    "start": "nuxt start",
-    "generate": "nuxt generate",
+    "dev": "nuxt2",
+    "build": "nuxt2 build",
+    "analyze": "nuxt2 build --analyze",
+    "start": "nuxt2 start",
+    "generate": "nuxt2 generate",
     "lint": "eslint ."
   },
   "dependencies": {
@@ -21,10 +21,12 @@
     "moment": "^2.29.4",
     "nuxt-basic-auth-module": "^1.4.1",
     "v-click-outside": "^3.2.0",
-    "vue-chartjs": "^3.5.1"
+    "vue-chartjs": "^3.5.1",
+    "vue-tree-chart": "^1.2.9"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.23.3",
+    "@nuxt/bridge": "npm:@nuxt/bridge-edge@^3.0.0-rc.3-28341892.086bff3",
     "@nuxtjs/eslint-config": "^6.0.1",
     "@nuxtjs/eslint-module": "^3.1.0",
     "@nuxtjs/style-resources": "^1.2.1",
@@ -43,8 +45,5 @@
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
-  },
-  "optionalDependencies": {
-    "vue-tree-chart": "^1.2.9"
   }
 }

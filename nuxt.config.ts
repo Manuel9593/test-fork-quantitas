@@ -2,14 +2,19 @@ import { defineNuxtConfig } from "@nuxt/bridge"
 
 // Global page headers: https://go.nuxtjs.dev/config-head
 // 10.96.1.143' - 08.10.2021
-// target: 'server',
-// proxy: {
-//   '/api/v0': { target: 'http://localhost:3000', pathRewrite: { '^/api/v0': '/api' } } // 08.10.2021
-// },
 export default defineNuxtConfig({
+  axios: {
+    proxy: true // Can be also an object with default options
+  },
+  proxy: {
+    '/api/v0': { target: 'http://localhost:3000', pathRewrite: { '^/api/v0': '/api' } } // 08.10.2021
+  },
+  target: 'server',
+  ssr: false,
   bridge: false,
   dev: process.env.NODE_ENV !== 'production',
   server: { host: '127.0.0.1' },
+  store: true,
   app: {
     head: {
       title: 'icdp-frontend',
