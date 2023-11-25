@@ -12,7 +12,7 @@
       </label>
       <ui-chip-list
         class="mt-4"
-        :list="fetchedTypologies()"
+        :list="typologies"
       />
     </div>
     <div class="row">
@@ -138,11 +138,9 @@
 </template>
 
 <script setup lang="ts">
-import { useRegionsStore } from '@/store/regions'
-import { useTypologiesStore } from '@/store/typologies'
-const { data: dataTree, pending } = await useFetch(`/api/facilities-diagram/`)
-const regions = useRegionsStore()
-const typologies = useTypologiesStore()
+import { useStore } from '~/composables/store'
+const store = await useStore()
+const typologies = store.getTypologies()
 </script>
 
 <script lang="ts">
@@ -158,16 +156,16 @@ export default {
         maintainAspectRatio: false,
         responsive: true,
         scales: {
-          xAxis: [{ grid: { display: false } }],
-          yAxis: [{ grid: { display: false } }]
+          x: { grid: { display: false } },
+          y: { grid: { display: false } }
         }
       },
       barPercentageOptions:  {
         maintainAspectRatio: false,
         responsive: true,
         scales: {
-          xAxis: [{ grid: { display: false } }],
-          yAxis: [{ grid: { display: false } }]
+          x: { grid: { display: false } },
+          y: { grid: { display: false } }
         },
         tooltips: {
           enabled: true,
@@ -183,15 +181,15 @@ export default {
         maintainAspectRatio: false,
         responsive: true,
         scales: {
-          yAxis: [{ grid: { display: false } }]
+          y: { grid: { display: false } }
         }
       },
       bigNumbersOptions: {
         maintainAspectRatio: false,
         responsive: true,
         scales: {
-          xAxis: [{ grid: { display: false } }],
-          yAxis: [{ grid: { display: false } }]
+          x: { grid: { display: false } },
+          y: { grid: { display: false } }
         },
         tooltips: {
           enabled: true,
@@ -210,7 +208,7 @@ export default {
         maintainAspectRatio: false,
         responsive: true,
         scales: {
-          yAxis: [{ grid: { display: false } }]
+          y: { grid: { display: false } }
         }
       },
       doughnutOptions: {
@@ -231,6 +229,8 @@ export default {
         }
       },
       grafici,
+      dataTree: {},
+      pending: true,
       metadata: {
         description: ''
       },
@@ -289,13 +289,10 @@ export default {
       ]
     }
   },
-  computed: {
-    async fetchedRegions () {
-      return await regions.getRegions()
-    },
-    async fetchedTypologies () {
-      return await typologies.getTypologies()
-    }
+  async mounted () {
+    const { data: dataTree, pending } = await useFetch(`/api/facilities-diagram/`)
+    this.dataTree = dataTree
+    this.pending = pending
   }
 }
 </script>

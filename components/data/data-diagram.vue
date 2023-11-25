@@ -1,5 +1,5 @@
 <template>
-  <vue-tree
+  <VueTree
     class="data-tree"
     :dataset="dataTree"
     :config="config"
@@ -17,15 +17,17 @@
         <span
           class="icon tree-icon"
           :class="{'icon-plus': collapsed, 'icon-minus': !collapsed, 'icon-none' : !node.hasChildren}"
-        />
+        ></span>
       </span>
     </template>
-  </vue-tree>
+  </VueTree>
 </template>
 
-<script lang="ts">
+<script>
+import VueTree from '@ssthouse/vue3-tree-chart'
 export default {
   name: 'DataTree',
+  components: { VueTree },
   props: {
     dataTree: {
       type: Object,

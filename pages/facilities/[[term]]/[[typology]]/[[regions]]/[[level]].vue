@@ -77,7 +77,7 @@
         </h2>
         <p>
           <ui-link
-            :to="{name: 'search'}"
+            :to="{name: 'search', params: {}}"
             :title="'Rimuovi tutti i filtri'"
             :text="'Annulla la ricerca'"
           />
@@ -99,21 +99,15 @@
 </template>
 
 <script setup lang="ts">
+import { useStore } from '~/composables/store'
+const store = await useStore()
 const route = useRoute()
 const { $encodeURIString } = useNuxtApp()
-const isListView = useIsListView()
-const regions = useRegionsStore()
-const typologies = useTypologiesStore()
 </script>
 
 <script lang="ts">
-import { useIsListView } from "@/store/isListView"
-import { useRegionsStore } from "@/store/regions"
-import { useTypologiesStore } from "@/store/typologies"
-import { UiSearchForm, SearchTable, SearchList, SearchFiltersRegions } from "#components";
 
 export default {
-  components: { UiSearchForm, SearchList, SearchTable, SearchFiltersRegions },
   data () {
     return {
       term: route.params.term || 'tutte',
@@ -126,7 +120,7 @@ export default {
       }
     }
   },
-  async mounted() {
+  async asyncData() {
     const facilities: any = await $fetch(`/api/v0/facilities/${this.getSearchedTerm}/${this.getSearchedRegions}/${this.typology}`)
     this.facilities = facilities
     this.fetchedRegions
@@ -142,13 +136,13 @@ export default {
   },
   computed: {
     isListView () {
-      return isListView.get.isListView
+      return store.getIsListView()
     },
-    async fetchedRegions () {
-      return await regions.getRegions()
+    fetchedRegions () {
+      return store.getRegions()
     },
-    async fetchedTypologies () {
-      return await typologies.getTypologies()
+    fetchedTypologies () {
+      return store.getTypologies()
     },
     getPageTitle () {
       let title = 'risultati'
@@ -212,7 +206,7 @@ export default {
       return $encodeURIString(string, '+')
     },
     changeResultsView (val: boolean) {
-      isListView.setIsListView(val)
+      store.setIsListView(val)
     },
     async filterByRegions () {
       let regionsParam: string | string[] = 'italia'

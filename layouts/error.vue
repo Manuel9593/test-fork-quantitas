@@ -12,7 +12,7 @@
       <p class="mt-3">
         <ui-link
           class="btn btn-primary"
-          :to="{name: 'home'}"
+          :to="{name: 'home', params: {}}"
           :title="'Torna alla home page'"
           :text="'Torna alla home'"
         />

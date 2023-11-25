@@ -5,7 +5,7 @@
         <div class="col-12 col-sm">
           <p class="logo icon icon-logo-small-white my-3">
             <ui-link
-              :to="{ name: 'home' }"
+              :to="{ name: 'home', params: {} }"
               :title="'Torna alla Homepage'"
               :text="'Digital Library. Istituo centrale per la digitalizzazione del patrimonio culturale'"
             />

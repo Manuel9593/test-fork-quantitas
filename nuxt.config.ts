@@ -20,9 +20,15 @@ export default defineNuxtConfig({
       ]
     },
   },
-  ssr: true,
+  ssr: false,
   dev: process.env.NODE_ENV !== 'production',
-  devtools: { enabled: process.env.NODE_ENV != 'development' },
+  devtools: {
+    enabled: process.env.NODE_ENV !== 'production',
+
+    timeline: {
+      enabled: true
+    }
+  },
   eslint: {
     lintOnStart: false
   },
@@ -31,28 +37,23 @@ export default defineNuxtConfig({
     client: true
   },
   plugins: [
-    { src: '@/plugins/filters' },
-    { src: '@/plugins/v-click-outside', mode: 'server' }
+    { src: '@/plugins/filters', mode: 'client' },
+    { src: '@/plugins/vClickOutsideVue3', mode: 'client'}
   ],
   components: [
-    { path: '~/components/layout/' },
-    { path: '~/components/ui-components/' },
-    { path: '~/components/search/' },
-    { path: '~/components/data/' }
+    { path: '@/components/layout/' },
+    { path: '@/components/ui-components/' },
+    { path: '@/components/search/' },
+    { path: '@/components/data/' }
   ],
   modules: [
     '@nuxtjs/eslint-module',
-    '@pinia/nuxt',
     '@nuxt/devtools',
-    '@kgierke/nuxt-basic-auth',
-    "@vueuse/nuxt"
+    '@kgierke/nuxt-basic-auth'
   ],
   css: [
     '@/assets/scss/style.scss'
   ],
-  pinia: {
-    storesDirs: ['./store/**']
-  },
   basicAuth: {
     enabled: process.env.NODE_ENV !== 'production',
     users: [

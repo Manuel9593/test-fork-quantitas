@@ -58,7 +58,7 @@ export default {
   name: 'DataTree',
   props: {
     dataTree: {
-      type: any,
+      type: Object,
       default: null
     }
   },

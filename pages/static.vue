@@ -27,7 +27,6 @@
 </template>
 
 <script setup lang="ts">
-import { useLazyFetch } from '#imports'
 const { data: dataTree = [], pending } = useLazyFetch('/api/v0/facilities-diagram')
 </script>
 

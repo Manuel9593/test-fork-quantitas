@@ -1,13 +1,9 @@
 <template>
   <div>
-    <MainHeader />
+    <main-header />
     <main id="main" class="container-fluid">
       <slot />
     </main>
-    <MainFooter />
+    <main-footer />
   </div>
 </template>
-
-<script setup lang="ts">
-import { MainHeader, MainFooter } from '#build/components';
-</script>
