@@ -31,48 +31,48 @@
                 <div v-if="grafico.options !== undefined">
                   <div v-if="grafico.percentage">
                     <Bar
-                      :chart-data="grafico.data"
-                      :chart-options="barPercentageOptions"
+                      :data="grafico.data"
+                      :options="barPercentageOptions"
                     />
                   </div>
                   <div v-else>
                     <Bar
-                      :chart-data="grafico.data"
-                      :chart-options="barChartOptions"
+                      :data="grafico.data"
+                      :options="barChartOptions"
                     />
                   </div>
                 </div>
                 <div v-else-if="grafico.bigNumbers">
                   <Bar
-                    :chart-data="grafico.data"
-                    :chart-options="bigNumbersOptions"
+                    :data="grafico.data"
+                    :options="bigNumbersOptions"
                   />
                 </div>
                 <div v-else-if="grafico.percentage">
                   <div v-if="grafico.separator">
                     <Bar
-                      :chart-data="grafico.data"
-                      :chart-options="separatorPercentageOptions"
+                      :data="grafico.data"
+                      :options="separatorPercentageOptions"
                     />
                   </div>
                   <div v-else>
                     <Bar
-                      :chart-data="grafico.data"
-                      :chart-options="barPercentageOptions"
+                      :data="grafico.data"
+                      :options="barPercentageOptions"
                     />
                   </div>
                 </div>
                 <div v-else>
                   <div v-if="grafico.separator">
                     <Bar
-                      :chart-data="grafico.data"
-                      :chart-options="barSeparatorOptions"
+                      :data="grafico.data"
+                      :options="barSeparatorOptions"
                     />
                   </div>
                   <div v-else>
                     <Bar
-                      :chart-data="grafico.data"
-                      :chart-options="barChartOptions"
+                      :data="grafico.data"
+                      :options="barChartOptions"
                     />
                   </div>
                 </div>
@@ -85,14 +85,14 @@
                 </p>
                 <div v-if="grafico.percentage">
                   <Doughnut
-                    :chart-data="grafico.data"
-                    :chart-options="doughnutPercentageOptions"
+                    :data="grafico.data"
+                    :options="doughnutPercentageOptions"
                   />
                 </div>
                 <div v-else>
                   <Doughnut
-                    :chart-data="grafico.data"
-                    :chart-options="doughnutOptions"
+                    :data="grafico.data"
+                    :options="doughnutOptions"
                   />
                 </div>
                 <div v-if="grafico.acronyms" class="text-center text-100" style="font-size: smaller; margin-top: 1em">
@@ -115,7 +115,7 @@
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut auctor lacus. Curabitur facilisis suscipit sodales. Nunc eget sapien porttitor, ornare velit a, vestibulum massa.
         </p>
         <div
-          v-if="pending"
+          v-if="!pending"
           class="bg-white border border-secondary p-3"
         >
           <DataTree
@@ -139,6 +139,7 @@
 
 <script setup lang="ts">
 import { useStore } from '~/composables/store'
+const { data: dataTree, pending } = await useFetch('/api/facilities-diagram')
 const store = await useStore()
 const typologies = store.getTypologies()
 </script>
@@ -228,9 +229,7 @@ export default {
           }
         }
       },
-      grafici,
-      dataTree: {},
-      pending: true,
+      grafici: {} as any,
       metadata: {
         description: ''
       },
@@ -288,11 +287,6 @@ export default {
         { hid: 'description', name: 'description', content: this.metadata.description }
       ]
     }
-  },
-  async mounted () {
-    const { data: dataTree, pending } = await useFetch(`/api/facilities-diagram/`)
-    this.dataTree = dataTree
-    this.pending = pending
   }
 }
 </script>

@@ -5,7 +5,7 @@ export default <RouterConfig> {
         {
             name: 'home',
             path: '/',
-            component: () => import('~/pages/index.vue').then(r => r.default || r)
+            component: () => import('~/pages/index.vue').then(r => r.default || r),
         },
         {
             name: 'diagramma',
@@ -14,13 +14,13 @@ export default <RouterConfig> {
         },
         {
             name: 'facility',
-            path: '/facilities/:id',
-            component: () => import('~/pages/facilities/[id].vue').then(r => r.default || r)
+            path: '/facility/:id',
+            component: () => import('~/pages/facility/[id].vue').then(r => r.default || r)
         },
         {
             name: 'cerca',
-            path: '/facilities/:term?/:typology?/:regions?/:level?',
-            component: () => import('~/pages/facilities/[[term]]/[[typology]]/[[regions]]/[[level]].vue').then(r => r.default || r)
+            path: '/facilities/:term?/:regions?/:typology?',
+            component: () => import('~/pages/facilities/[[term]]/[[regions]]/[[typology]]/index.vue').then(r => r.default || r)
         }
     ]
 }

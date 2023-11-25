@@ -3,6 +3,7 @@
     action="/facilities/"
     method="GET"
     class="search-form row mx-0 my-3"
+    @submit.stop.prevent="submit()"
   >
     <label
       class="h5 mt-5 active col-6"
@@ -27,7 +28,6 @@
         :text="'Cerca'"
         :icon="'icon icon-search icon-in-line'"
         :submit="true"
-        @click="submit()"
       />
     </div>
   </form>
@@ -38,8 +38,7 @@ export default {
   name: 'UiSearchForm',
   props: {
     searchedTerm: {
-      type: String,
-      default: ''
+      type: String
     },
     isInHeader: {
       type: Boolean,

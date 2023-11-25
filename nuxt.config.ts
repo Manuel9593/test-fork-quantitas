@@ -1,6 +1,6 @@
 import { defineNuxtConfig } from "nuxt/config"
+import routerOptions from "./app/router.options"
 
-// 10.96.1.143' - 08.10.2021
 export default defineNuxtConfig({
   app: {
     baseURL: '/',
@@ -29,6 +29,13 @@ export default defineNuxtConfig({
       enabled: true
     }
   },
+  build: {
+    analyze: {
+      template: "treemap",
+      projectRoot: ".",
+      filename: "./.nuxt/analyze/result.mignon.html"
+    }
+  },
   eslint: {
     lintOnStart: false
   },
@@ -38,7 +45,7 @@ export default defineNuxtConfig({
   },
   plugins: [
     { src: '@/plugins/filters', mode: 'client' },
-    { src: '@/plugins/vClickOutsideVue3', mode: 'client'}
+    { src: '@/plugins/vClickOutsideVue3', mode: 'all'}
   ],
   components: [
     { path: '@/components/layout/' },

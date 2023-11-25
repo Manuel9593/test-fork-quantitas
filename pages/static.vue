@@ -8,7 +8,7 @@
         Naviga il diagramma amministrativo delle strutture del Ministero della cultura.
       </p>
     </header>
-    <div v-if="pending">
+    <div v-if="!pending">
       <data-diagram
         :dataTree="dataTree"
       />
@@ -27,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-const { data: dataTree = [], pending } = useLazyFetch('/api/v0/facilities-diagram')
+const { data: dataTree = {} , pending } = await useFetch('/api/facilities-diagram')
 </script>
 
 <script lang="ts">

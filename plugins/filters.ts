@@ -3,7 +3,7 @@ import { defineNuxtPlugin } from 'nuxt/app'
 export default defineNuxtPlugin(() => {
   return {
     provide: {
-      truncate: (string: string, lenght: number, sep: string = ' …') => {
+      truncate: (string: string, lenght: number, sep: string = ' …'): string => {
         if (string.length >= lenght) {
           return (string || '').substring(0, lenght) + sep
         } else {
@@ -11,8 +11,7 @@ export default defineNuxtPlugin(() => {
         }
       },
       formatDate: (value: string) => {
-        const date = new Date(value)
-        return date.toLocaleString(['it-IT'], {
+        return new Date(value).toLocaleString(['it-IT'], {
           month: 'short',
           day: '2-digit',
           year: 'numeric'
@@ -20,10 +19,10 @@ export default defineNuxtPlugin(() => {
       },
       encodeURIString: (string: string, sep: string = '-') => {
         return encodeURIComponent(string)
-          .replace('/%20/g', sep)
-          .replace('/%2C/g', '')
-          .replace('/%3B/g', '')
-          .replace('/%3F/g', '')
+          .replace(/%20/g, sep)
+          .replace(/%2C/g, '')
+          .replace(/%3B/g, '')
+          .replace(/%3F/g, '')
           .toLowerCase()
       },
       number: (number: number) => {

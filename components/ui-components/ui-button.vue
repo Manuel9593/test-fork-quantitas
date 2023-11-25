@@ -2,7 +2,6 @@
   <button
     :type="submit ? 'submit' : 'button'"
     :title="title"
-    @click.stop.prevent="onClickEvent()"
   >
     <span
       :class="hasIcon ? icon : ''"
@@ -48,11 +47,6 @@ export default {
   computed: {
     hasIcon () {
       return !!this.icon
-    }
-  },
-  methods: {
-    onClickEvent () {
-      this.$emit('click')
     }
   }
 }

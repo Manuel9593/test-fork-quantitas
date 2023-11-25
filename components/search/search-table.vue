@@ -81,14 +81,11 @@ export default {
   name: 'SearchTable',
   props: {
     facilities: {
-      type: Array,
+      type: Array<Object>,
       default () {
         return []
       }
     }
-  },
-  data () {
-    return {}
   }
 }
 </script>

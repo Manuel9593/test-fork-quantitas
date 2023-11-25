@@ -17,7 +17,7 @@
         <span
           class="icon tree-icon"
           :class="{'icon-plus': collapsed, 'icon-minus': !collapsed, 'icon-none' : !node.hasChildren}"
-        ></span>
+        />
       </span>
     </template>
   </VueTree>
@@ -25,12 +25,13 @@
 
 <script>
 import VueTree from '@ssthouse/vue3-tree-chart'
+import "@ssthouse/vue3-tree-chart/dist/vue3-tree-chart.css"
 export default {
   name: 'DataTree',
   components: { VueTree },
   props: {
     dataTree: {
-      type: Object,
+      type: Object || Array,
       default: null
     }
   },
