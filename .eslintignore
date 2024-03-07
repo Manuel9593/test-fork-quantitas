@@ -1,4 +1,5 @@
 dist
 .nuxt
+.output
 node_modules
 prisma

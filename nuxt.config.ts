@@ -36,9 +36,6 @@ export default defineNuxtConfig({
       filename: "./.nuxt/analyze/result.mignon.html"
     }
   },
-  eslint: {
-    lintOnStart: false
-  },
   sourcemap: {
     server: true,
     client: true
@@ -61,15 +58,18 @@ export default defineNuxtConfig({
   css: [
     '@/assets/scss/style.scss'
   ],
-  basicAuth: {
-    enabled: process.env.NODE_ENV !== 'production',
-    users: [
-      {
-        username: process.env.BASIC_USER || "",
-        password: process.env.BASIC_SECRET || "",
-      }
-    ]
+  eslint: {
+    lintOnStart: false
   },
+  // basicAuth: {
+  //   enabled: process.env.NODE_ENV !== 'production',
+  //   users: [
+  //     {
+  //       username: process.env.BASIC_USER || "",
+  //       password: process.env.BASIC_SECRET || "",
+  //     }
+  //   ]
+  // },
   vite: {
     css: {
       preprocessorOptions: {

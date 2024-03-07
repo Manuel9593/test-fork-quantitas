@@ -150,6 +150,7 @@ import { Bar, Doughnut } from 'vue-chartjs'
 import grafici from './grafici.json'
 
 export default {
+  name: "index",
   components: { Bar, Doughnut },
   data () {
     return {

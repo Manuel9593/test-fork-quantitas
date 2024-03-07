@@ -72,6 +72,9 @@ typings/
 .output
 dist
 
+#data Tree cache
+.data
+
 # vuepress build output
 .vuepress/dist
 

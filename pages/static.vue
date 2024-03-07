@@ -32,6 +32,7 @@ const { data: dataTree = {} , pending } = await useFetch('/api/facilities-diagra
 
 <script lang="ts">
 export default {
+  name: "static",
   data () {
     return {
       metadata: {
