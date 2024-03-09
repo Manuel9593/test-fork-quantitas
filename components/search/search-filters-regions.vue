@@ -11,6 +11,7 @@
           <li v-for="{ id, slug, name } in fetchedRegions" :key="id" class="form-check">
             <input :id="'region-' + id" v-model="checkedRegions" name="regions" type="checkbox" :value="slug">
             <label class="active" :for="'region-' + id">
+
               <small>
                 {{ name }}
               </small>
@@ -33,7 +34,6 @@
 
 <script lang="ts">
 import RegionType from '~/types/prismaTypes/regionType'
-
 export default {
   name: 'SearchFiltersRegions',
   props: {

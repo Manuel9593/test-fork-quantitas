@@ -8,6 +8,7 @@
     <div class="mb-5 search-form-wrapper">
       <ui-search-form />
       <label class="visually-hidden">
+
         <b>Cerca per tipo</b>
       </label>
       <ui-chip-list
@@ -46,6 +47,7 @@
                   <Bar
                     :data="grafico.data"
                     :options="bigNumbersOptions"
+
                   />
                 </div>
                 <div v-else-if="grafico.percentage">

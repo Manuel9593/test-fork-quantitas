@@ -35,11 +35,13 @@
 
 <script lang="ts">
 import encodeURIString from '~/utils/encodeURIString'
+
 export default {
   name: 'UiSearchForm',
   props: {
     searchedTerm: {
       type: String
+
     },
     isInHeader: {
       type: Boolean,

@@ -38,7 +38,6 @@ export default {
     }
   },
   data () {
-    console.log("from diagram",this.dataTree[4].name)
     return {
       config: {
         nodeWidth: 160,

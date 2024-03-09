@@ -94,12 +94,10 @@ export default {
       li {
         border-bottom: solid 1px $secondary;
       }
-
       label {
         width: 100%;
       }
     }
-
     .btn.text-start {
       width: 100%;
     }
