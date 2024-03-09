@@ -8,7 +8,7 @@
         Naviga il diagramma amministrativo delle strutture del Ministero della cultura.
       </p>
     </header>
-    <div v-if="!pending">
+    <div v-if="!pending && dataTree != null">
       <data-diagram
         :dataTree="dataTree"
       />
@@ -26,25 +26,20 @@
   </section>
 </template>
 
-<script setup lang="ts">
-const { data: dataTree = {} , pending } = await useFetch('/api/facilities-diagram')
+<script lang="ts" setup>
+import { useFetch } from 'nuxt/app';
+const { data: dataTree , pending } = await useFetch<FacilityType[]>('/api/facilities-diagram')
 </script>
 
 <script lang="ts">
+import FacilityType from '~/types/prismaTypes/facilityType';
+
 export default {
-  name: "static",
-  data () {
-    return {
-      metadata: {
-        description: ''
-      }
-    }
-  },
   head () {
     return {
       title: 'Cerca tra le strutture culturali italiane | ICDP - Digital Library',
       meta: [
-        { hid: 'description', name: 'description', content: this.metadata.description }
+        { hid: 'description', name: 'description', content: "" }
       ]
     }
   }

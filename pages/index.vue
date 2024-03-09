@@ -28,7 +28,7 @@
                 <p class="text-center text-100" style="font-size: smaller">
                   {{ grafico.title }}
                 </p>
-                <div v-if="grafico.options !== undefined">
+                <!-- <div v-if="grafico.options !== undefined">
                   <div v-if="grafico.percentage">
                     <Bar
                       :data="grafico.data"
@@ -41,8 +41,8 @@
                       :options="barChartOptions"
                     />
                   </div>
-                </div>
-                <div v-else-if="grafico.bigNumbers">
+                </div> -->
+                <div v-if="grafico.bigNumbers">
                   <Bar
                     :data="grafico.data"
                     :options="bigNumbersOptions"
@@ -115,7 +115,7 @@
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut auctor lacus. Curabitur facilisis suscipit sodales. Nunc eget sapien porttitor, ornare velit a, vestibulum massa.
         </p>
         <div
-          v-if="!pending"
+          v-if="dataTree.length"
           class="bg-white border border-secondary p-3"
         >
           <DataTree
@@ -137,21 +137,25 @@
   </section>
 </template>
 
-<script setup lang="ts">
-import { useStore } from '~/composables/store'
-const { data: dataTree, pending } = await useFetch('/api/facilities-diagram')
-const store = await useStore()
-const typologies = store.getTypologies()
+<script lang="ts" setup>
+import FacilityType from '~/types/prismaTypes/facilityType'
+import { useStore } from '~/composables/store';
+const dataTree = ref<FacilityType[]>([]);
+$fetch<FacilityType[]>('/api/facilities-diagram')
+.then((result) => dataTree.value = result)
+const typologies = useStore().getTypologies
 </script>
 
 <script lang="ts">
 import 'chart.js/auto'
 import { Bar, Doughnut } from 'vue-chartjs'
 import grafici from './grafici.json'
+import { useFetch } from 'nuxt/app';
+import GraphOutcome from '~/types/graphTypes';
+import { DataTree } from '#components';
 
 export default {
-  name: "index",
-  components: { Bar, Doughnut },
+  components: { Bar, Doughnut, DataTree },
   data () {
     return {
       barChartOptions: {
@@ -230,7 +234,7 @@ export default {
           }
         }
       },
-      grafici: {} as any,
+      grafici: grafici as unknown as GraphOutcome,
       metadata: {
         description: ''
       },
@@ -285,7 +289,7 @@ export default {
     return {
       title: 'Cerca tra le strutture culturali italiane | ICDP - Digital Library',
       meta: [
-        { hid: 'description', name: 'description', content: this.metadata.description }
+        { hid: 'description', name: 'description', content: '' }
       ]
     }
   }

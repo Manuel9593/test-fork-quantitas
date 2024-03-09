@@ -4,7 +4,7 @@
       <b>Filtra per tipo</b>
     </label>
     <ui-button class="btn btn-select" :class="{ 'btn-select--selected': isTypologyFilterOpen }"
-      :text="buttonText || $truncate(buttonText, 24)" @click="openTypologyFilter" />
+      :text="buttonText || truncate(buttonText, 24)" @click="openTypologyFilter" />
     <div v-if="isTypologyFilterOpen" :v-click-outside="openTypologyFilter" class="typology-filter-form">
       <ul class="m-0 list-unstyled">
         <li v-for="{ id, slug, name } in fetchedTypology" :key="id">

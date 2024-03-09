@@ -34,6 +34,7 @@
 </template>
 
 <script lang="ts">
+import encodeURIString from '~/utils/encodeURIString'
 export default {
   name: 'UiSearchForm',
   props: {
@@ -52,8 +53,7 @@ export default {
   },
   methods: {
     encodeUriStringMethod (string: string) {
-      const { $encodeURIString } = useNuxtApp()
-      return $encodeURIString(string, '+')
+      return encodeURIString(string, '+')
     },
     submit () {
       const encodedTerm = this.searchTerm ? this.encodeUriStringMethod(this.searchTerm) : ''

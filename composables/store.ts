@@ -1,16 +1,18 @@
 import RegionType from "~/types/prismaTypes/regionType"
 import TypologyType from "~/types/prismaTypes/typologyType"
 
-export const useStore = async () => {
-  const regionsData = await $fetch('/api/regions/') || []
-  const typologiesData = await $fetch('/api/typologies/') || []
-  const isListView = useState<boolean>('isListView', () => true)
-  const regions = useState<RegionType[]>('regions', () => regionsData)
-  const typologies = useState<TypologyType[]>('typologies', () => typologiesData)
+export const useStore = () => {
+  const isListView = ref<boolean>(true)
+  const regions = ref<RegionType[]>([])
+  const typologies = ref<TypologyType[]>([])
+  $fetch<RegionType[]>('/api/regions/')
+  .then((result) => regions.value = result)
+  $fetch<TypologyType[]>('/api/typologies/')
+  .then((result) => typologies.value = result)
   return {
-    getIsListView: () => isListView.value,
+    getIsListView: isListView,
     setIsListView: (data: boolean) => isListView.value = data,
-    getRegions: (): RegionType[] => regions.value,
-    getTypologies: (): TypologyType[] => typologies.value
+    getRegions: regions,
+    getTypologies: typologies
   }
 }

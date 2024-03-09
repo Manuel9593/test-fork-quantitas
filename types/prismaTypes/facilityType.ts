@@ -1,4 +1,4 @@
-export interface FacilityType {
+export default interface FacilityType {
     id: number
     code: number
     level: number
@@ -6,7 +6,7 @@ export interface FacilityType {
     typology: string
     typologySlug: string
     venue: string
-    website: string | null
+    website: string
     city: string | null
     province: string | null
     region: string
@@ -19,5 +19,3 @@ export interface FacilityType {
     parent?: FacilityType
     children?: FacilityType[]
 }
-
-export default FacilityType

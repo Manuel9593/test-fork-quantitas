@@ -4,8 +4,8 @@
       <b>Filtra per regione</b>
     </label>
     <ui-button class="btn btn-select" :class="{ 'btn-select--selected': isRegionsFilterOpen }" :text="buttonText"
-      @click="openRegionFilter()" />
-    <div v-if="isRegionsFilterOpen" :v-click-outside="openRegionFilter()" class="regions-filter-form">
+      @click="openRegionFilter" />
+    <div v-if="isRegionsFilterOpen" :v-click-outside="openRegionFilter" class="regions-filter-form">
       <form method="GET">
         <ul class="m-0 list-unstyled">
           <li v-for="{ id, slug, name } in fetchedRegions" :key="id" class="form-check">
@@ -19,11 +19,11 @@
         </ul>
         <div class="row align-items-center p-2">
           <div class="col">
-            <ui-button class="btn" :text="'Cancella'" @click="removeRegions()" />
+            <ui-button class="btn" :text="'Cancella'" @click.prevent="removeRegions()" />
           </div>
           <div class="col text-end">
             <ui-button class="btn btn-primary" :text="'Filtra (' + checkedRegions.length + ')'" :submit="true"
-              @click="submit()" />
+              @click.prevent="submit()" />
           </div>
         </div>
       </form>

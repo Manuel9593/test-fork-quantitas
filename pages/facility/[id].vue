@@ -1,5 +1,5 @@
 <template>
-  <section class="mb-5">
+  <section class="mb-5" v-if="facility">
     <header class="my-4">
       <small class="badge rounded-pill bg-dark mb-2 text-capitalize">
         {{ facility.typology }}
@@ -93,16 +93,22 @@
 </template>
 
 <script lang="ts" setup>
+import { useRoute } from '#app'
 import FacilityType from '~/types/prismaTypes/facilityType'
 const route = useRoute()
 const facilityId = route.params.id
-const facility: FacilityType = await $fetch(`/api/facility/${facilityId}`)
-useHead({
-  title: facility.name + ' | ICDP - Digital Library',
-  meta: [
-    { hid: 'description', name: 'description', content: '' }
-  ]
+const facility = ref<FacilityType|null>(null);
+$fetch<FacilityType>(`/api/facility/${facilityId}`)
+.then((result) => {
+  facility.value = result
+  useHead({
+    title: facility.value?.name + ' | ICDP - Digital Library',
+    meta: [
+        { hid: 'description', name: 'description', content: '' }
+      ]
+  })
 })
+.catch(() => {navigateTo({path:'/'})})
 </script>
 
 <style lang="scss" scoped>

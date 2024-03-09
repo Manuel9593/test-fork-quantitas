@@ -1,4 +1,4 @@
-export type RegionType = {
+type RegionType = {
     id: number,
     name: string,
     slug: string

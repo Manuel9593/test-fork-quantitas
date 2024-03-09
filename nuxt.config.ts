@@ -1,5 +1,4 @@
 import { defineNuxtConfig } from "nuxt/config"
-import routerOptions from "./app/router.options"
 
 export default defineNuxtConfig({
   app: {
@@ -41,7 +40,6 @@ export default defineNuxtConfig({
     client: true
   },
   plugins: [
-    { src: '@/plugins/filters', mode: 'client' },
     { src: '@/plugins/vClickOutsideVue3', mode: 'all'}
   ],
   components: [
@@ -61,15 +59,15 @@ export default defineNuxtConfig({
   eslint: {
     lintOnStart: false
   },
-  // basicAuth: {
-  //   enabled: process.env.NODE_ENV !== 'production',
-  //   users: [
-  //     {
-  //       username: process.env.BASIC_USER || "",
-  //       password: process.env.BASIC_SECRET || "",
-  //     }
-  //   ]
-  // },
+  basicAuth: {
+    enabled: process.env.NODE_ENV !== 'production',
+    users: [
+      {
+        username: process.env.BASIC_USER || "",
+        password: process.env.BASIC_SECRET || "",
+      }
+    ]
+  },
   vite: {
     css: {
       preprocessorOptions: {
