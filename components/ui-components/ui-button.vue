@@ -2,14 +2,13 @@
   <button
     :type="submit ? 'submit' : 'button'"
     :title="title"
-    @click.stop.prevent="onClickEvent()"
   >
     <span
       :class="hasIcon ? icon : ''"
     >
       <span
-        v-if="srOnly"
-        class="sr-only"
+        v-if="visuallyHidden"
+        class="visually-hidden"
       >
         {{ text }}
       </span>
@@ -20,7 +19,7 @@
   </button>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   name: 'UiButton',
   props: {
@@ -40,7 +39,7 @@ export default {
       type: Boolean,
       default: false
     },
-    srOnly: {
+    visuallyHidden: {
       type: Boolean,
       default: false
     }
@@ -48,11 +47,6 @@ export default {
   computed: {
     hasIcon () {
       return !!this.icon
-    }
-  },
-  methods: {
-    onClickEvent () {
-      this.$emit('click')
     }
   }
 }

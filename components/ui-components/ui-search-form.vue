@@ -1,67 +1,65 @@
 <template>
   <form
-    action="/cerca/"
+    action="/facilities/"
     method="GET"
     class="search-form row mx-0 my-3"
+    @submit.stop.prevent="submit()"
   >
     <label
-      class="h5 mt-5"
-      :class="{'sr-only': isInHeader}"
+      class="h5 mt-5 active col-6"
+      :class="{'visually-hidden': isInHeader}"
       for="facility-search"
     >
       <b>Cerca tra le strutture culturali italiane</b>
     </label>
-    <div class="search-form-outline">
-      <input
-        id="facility-search"
-        v-model="searchTerm"
-        name="facility-search"
-        type="search"
-        placeholder="Cerca direzioni, istituti, soprintendenze, luoghi della cultura, ecc."
-        class="search-form-control"
-      >
+    <div class="form-group row">
+      <div class="search-form-outline col-6">
+        <input
+          id="facility-search"
+          v-model="searchTerm"
+          name="facility-search"
+          type="search"
+          placeholder="Cerca direzioni, istituti, soprintendenze, luoghi della cultura, ecc."
+          class="search-form-control"
+        >
+      </div>
+      <ui-button
+        class="btn btn-primary search-form-btn col-auto"
+        :text="'Cerca'"
+        :icon="'icon icon-search icon-in-line'"
+        :submit="true"
+      />
     </div>
-    <ui-button
-      class="btn btn-primary search-form-btn"
-      :text="'Cerca'"
-      :icon="'icon icon-search icon-in-line'"
-      :submit="true"
-      @click="submit()"
-    />
   </form>
 </template>
 
-<script>
+<script lang="ts">
+import encodeURIString from '~/utils/encodeURIString'
+
 export default {
   name: 'UiSearchForm',
   props: {
     searchedTerm: {
-      type: String,
-      default: ''
+      type: String
+
     },
     isInHeader: {
       type: Boolean,
       default: false
-    }
+    },
   },
   data () {
     return {
       searchTerm: ''
     }
   },
-  beforeMount () {
-    if (this.searchedTerm) {
-      this.searchTerm = this.searchedTerm
-    }
-  },
   methods: {
-    encodeUriStringMethod (string) {
-      return this.$options.filters.encodeUriString(string, '+')
+    encodeUriStringMethod (string: string) {
+      return encodeURIString(string, '+')
     },
     submit () {
-      this.errors = false
       const encodedTerm = this.searchTerm ? this.encodeUriStringMethod(this.searchTerm) : ''
-      return this.$router.push('/cerca/' + encodedTerm)
+      navigateTo({path: `/facilities/${encodedTerm}`})
     }
   }
 }

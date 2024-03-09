@@ -1,7 +1,4 @@
-/*
- * customizer.scss
- * @version 1.0
- */
+@import "./color-variables";
 
 body {
   background-color: $secondary-lighter;
@@ -9,9 +6,7 @@ body {
   font-family: 'Titillium Web', sans-serif;
 }
 
-main#main,
-header#main-header,
-footer#main-footer {
+main#main, header#main-header, footer#main-footer {
   max-width: 1280px;
 }
 

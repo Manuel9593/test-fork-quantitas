@@ -3,15 +3,15 @@
     <li
       v-for="facility in facilities"
       :key="facility.id"
-      class="col-12 col-sm-6 col-md-4 col-lg-3 mb-5 ml-0"
+      class="col-12 col-sm-6 col-md-4 col-lg-3 mb-5 ms-0"
     >
       <ui-card>
         <template #header>
           <small
-            class="badge badge-pill badge-dark mb-2 text-capitalize"
+            class="badge bg-pill bg-dark mb-2 text-capitalize"
             :title="facility.typology"
           >
-            {{ facility.typology | truncate(28) }}
+            {{ facility.typology || truncate(facility.typology, 28) }}
           </small>
           <h3 class="h5 m-0">
             <b>{{ facility.name }}</b>
@@ -46,12 +46,14 @@
   </ul>
 </template>
 
-<script>
+<script lang="ts">
+import FacilityType from '~/types/prismaTypes/facilityType';
+
 export default {
   name: 'SearchList',
   props: {
     facilities: {
-      type: Array,
+      type: Array<FacilityType>,
       default () {
         return []
       }

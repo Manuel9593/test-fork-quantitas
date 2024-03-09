@@ -8,7 +8,7 @@
       <small class="chip chip-primary chip-sm mx-2">
         <ui-link
           class="chip-label"
-          :to="{ name: 'search', params: { term: 'tutte', region: 'italia', typology: element.slug }}"
+          :to="{ name: 'cerca', params: { term: 'tutte', regions: 'italia', typology: element.slug }}"
           :text="element.name"
           :title="'Vedi tutte le strutture: ' + element.name"
         />

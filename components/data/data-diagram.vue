@@ -1,18 +1,18 @@
 <template>
-  <vue-tree
+  <VueTree
     class="data-tree"
     :dataset="dataTree"
     :config="config"
     :direction="'horizontal'"
   >
-    <template #node="{ node, collapsed }">
+    <template v-slot:node="{ node, collapsed }">
       <span
         class="tree-node"
       >
         <ui-link
           :to="{ name: 'facility', params: { id: node.id }}"
-          :text="node.value | truncate(60)"
-          :title="'Vedi: ' + node.value"
+          :text="node.name"
+          :title="'Vedi: ' + node.name"
         />
         <span
           class="icon tree-icon"
@@ -20,15 +20,20 @@
         />
       </span>
     </template>
-  </vue-tree>
+  </VueTree>
 </template>
 
-<script>
+<script lang="ts">
+import VueTree from '@ssthouse/vue3-tree-chart'
+import "@ssthouse/vue3-tree-chart/dist/vue3-tree-chart.css"
+import FacilityType from "~/types/prismaTypes/facilityType"
+
 export default {
   name: 'DataTree',
+  components: { VueTree },
   props: {
     dataTree: {
-      type: Object,
+      type: Array<FacilityType>,
       default: null
     }
   },

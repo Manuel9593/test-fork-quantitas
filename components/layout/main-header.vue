@@ -5,9 +5,9 @@
         <div class="col-12 col-sm">
           <p class="logo icon icon-logo-white my-3">
             <ui-link
-              :to="{ name: 'home' }"
+              :to="{ name: 'home', params: {} }"
               :title="'Torna alla Homepage'"
-              :text="'Digital Library. Istituo centrale per la digitalizzazione del patrimonio culturale'"
+              :text="'Digital Library. Istituto centrale per la digitalizzazione del patrimonio culturale'"
             />
           </p>
         </div>
@@ -27,10 +27,11 @@ export default {
   name: 'MainHeader',
   computed: {
     hasSearchForm () {
+      const route = useRoute()
       if (
-        this.$nuxt.$route.name === 'search' ||
-        this.$nuxt.$route.name === 'index' ||
-        this.$nuxt.$route.name === 'home'
+        route.name === 'search' ||
+        route.name === 'index' ||
+        route.name === 'home'
       ) {
         return false
       } else {

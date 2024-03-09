@@ -1,38 +1,38 @@
 <template>
   <ul class="m-0 list-unstyled">
     <li
-      v-for="facility in dataTree.children"
+      v-for="facility in dataTree"
       :key="facility.id"
       class="row mb-3"
     >
       <span class="col tree-icon-wrapper">
         <ui-button
-          v-if="hasChildren(facility.children)"
+          v-if="hasChildren(facility)"
           class="icon tree-icon"
           :class="isOpened(facility.id) ? 'icon-minus': 'icon-plus'"
           :text="'Apri'"
-          :title="'Vedi le strutture amministrate da: ' + facility.value"
-          :sr-only="true"
+          :title="'Vedi le strutture amministrate da: ' + facility.name"
+          :visually-hidden="true"
           @click="openElement(facility.id)"
         />
       </span>
       <p class="col mb-0">
         <ui-link
           :to="{ name: 'facility', params: { id: facility.id }}"
-          :text="facility.value"
-          :title="'Vedi: ' + facility.value"
+          :text="facility.name"
+          :title="'Vedi: ' + facility.name"
         />
         <br v-if="isOpened(facility.id)">
         <small
           v-if="isOpened(facility.id)"
           class="d-inline-block mt-2"
         >
-          Amministra <b>{{ facility.children.length }}</b> strutture:
+          Amministra <b>{{ facility.children ? facility.children.length : 0 }}</b> strutture:
         </small>
       </p>
       <ul
         v-if="isOpened(facility.id)"
-        class="my-3 ml-4"
+        class="my-3 ms-4"
       >
         <li
           v-for="facilitySecond in facility.children"
@@ -41,10 +41,10 @@
         >
           <small>
             <ui-link
-              class="font-weight-normal"
+              class="fw-normal"
               :to="{ name: 'facility', params: { id: facilitySecond.id }}"
-              :text="facilitySecond.value"
-              :title="'Vedi: ' + facilitySecond.value"
+              :text="facilitySecond.name"
+              :title="'Vedi: ' + facilitySecond.name"
             />
           </small>
         </li>
@@ -53,22 +53,24 @@
   </ul>
 </template>
 
-<script>
+<script lang="ts">
+import FacilityType from "~/types/prismaTypes/facilityType"
+
 export default {
   name: 'DataTree',
   props: {
     dataTree: {
-      type: Object,
+      type: Array<FacilityType>,
       default: null
     }
   },
   data () {
     return {
-      opened: []
+      opened: [] as number[]
     }
   },
   methods: {
-    openElement (id) {
+    openElement (id: number) {
       if (this.opened.includes(id)) {
         const filteredOpened = this.opened.filter(e => e !== id)
         this.opened = filteredOpened
@@ -76,15 +78,15 @@ export default {
         this.opened.push(id)
       }
     },
-    isOpened (id) {
+    isOpened (id: number) {
       if (this.opened.includes(id)) {
         return true
       } else {
         return false
       }
     },
-    hasChildren (array) {
-      return !!array.length
+    hasChildren (facility: FacilityType): boolean {
+      return facility.children ? true : false
     }
   }
 }

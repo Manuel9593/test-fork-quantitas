@@ -29,7 +29,7 @@
             </small>
           </th>
           <td class="text-center">
-            <small class="badge badge-pill badge-dark mb-2 text-capitalize">
+            <small class="badge bg-pill bg-dark mb-2 text-capitalize">
               {{ facility.typology }}
             </small>
           </td>
@@ -76,19 +76,16 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   name: 'SearchTable',
   props: {
     facilities: {
-      type: Array,
+      type: Array<Object>,
       default () {
         return []
       }
     }
-  },
-  data () {
-    return {}
   }
 }
 </script>

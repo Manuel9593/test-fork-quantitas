@@ -6,10 +6,10 @@
 /**
  * Icons variable
  */
- $str: '~assets/svg/';
- $icon-logo: '~static/img/icdp-logo-white.svg';
- $icon-logo-small: '~static/img/icdp-logo-small-white.svg';
- $icon-logo-mic: '~static/img/mic-logo-white.svg';
+ $str: '@/assets/svg/';
+ $icon-logo: '@/public/img/icdp-logo-white.svg';
+ $icon-logo-small: '@/public/img/icdp-logo-small-white.svg';
+ $icon-logo-mic: '@/public/img/mic-logo-white.svg';
 
  $icon-collapse: $str + 'it-collapse.svg';
  $icon-expand: $str + 'it-expand.svg';

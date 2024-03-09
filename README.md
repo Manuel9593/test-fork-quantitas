@@ -24,10 +24,10 @@ Migrate schema to SQLite database
 $ npx prisma migrate dev --name init
 ```
 
-Upoload data fixture to database (data are stored in: `./prisma/data/`)
+Upload data fixture to database (data are stored in: `./prisma/data/`)
 
 ```bash
-$ npx prisma db seed --preview-feature
+$ npx prisma db seed
 ```
 
 In order to drop database and upoload data fixture again, i.e. if you update the schema, run:

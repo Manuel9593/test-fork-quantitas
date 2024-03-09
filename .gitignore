@@ -56,8 +56,7 @@ typings/
 # Yarn Integrity file
 .yarn-integrity
 
-# dotenv environment variables file
-.env
+.env*
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
@@ -69,7 +68,11 @@ typings/
 .nuxt
 
 # Nuxt generate
+.output
 dist
+
+#data Tree cache
+.data
 
 # vuepress build output
 .vuepress/dist
@@ -92,3 +95,6 @@ sw.*
 # Keep migrations files out of version control
 prisma/migrations
 prisma/dev.db
+
+# API Calls
+api-calls
