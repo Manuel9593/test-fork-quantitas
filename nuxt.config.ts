@@ -1,28 +1,29 @@
-import { defineNuxtConfig } from "nuxt/config"
+import { createResolver } from "@nuxt/kit";
+import { defineNuxtConfig } from "nuxt/config";
 
 export default defineNuxtConfig({
   app: {
-    baseURL: '/',
     head: {
-      title: 'icdp-frontend',
+      title: "icdp-frontend",
       htmlAttrs: {
-        lang: 'it'
+        lang: "it"
       },
       meta: [
-        { charset: 'utf-8' },
-        { name: 'viewport', content: 'width=device-width, initial-scale=1, shrink-to-fit=no' },
-        { hid: 'description', name: 'description', content: '' },
-        { name: 'format-detection', content: 'telephone=no' }
+        { charset: "utf-8" },
+        {
+          name: "viewport",
+          content: "width=device-width, initial-scale=1, shrink-to-fit=no"
+        },
+        { hid: "description", name: "description", content: "" },
+        { name: "format-detection", content: "telephone=no" }
       ],
-      link: [
-        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-      ]
-    },
+      link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
+    }
   },
   ssr: false,
-  dev: process.env.NODE_ENV !== 'production',
+  dev: process.env.NODE_ENV !== "production",
   devtools: {
-    enabled: process.env.NODE_ENV !== 'production',
+    enabled: process.env.NODE_ENV !== "production",
 
     timeline: {
       enabled: true
@@ -39,32 +40,30 @@ export default defineNuxtConfig({
     server: true,
     client: true
   },
-  plugins: [
-    { src: '@/plugins/vClickOutsideVue3', mode: 'all'}
-  ],
+  plugins: [{ src: "@/plugins/vClickOutsideVue3", mode: "all" }],
   components: [
-    { path: '@/components/layout/' },
-    { path: '@/components/ui-components/' },
-    { path: '@/components/search/' },
-    { path: '@/components/data/' }
+    { path: "~/components" },
+    { path: "~/components/data/" },
+    { path: "~/components/layout/" },
+    { path: "~/components/search/" },
+    { path: "~/components/ui-components/" }
   ],
   modules: [
-    '@nuxtjs/eslint-module',
-    '@nuxt/devtools',
-    '@kgierke/nuxt-basic-auth'
+    "@nuxtjs/eslint-module",
+    "@nuxt/devtools",
+    "@kgierke/nuxt-basic-auth",
+    "@nuxt/ui"
   ],
-  css: [
-    '@/assets/scss/style.scss'
-  ],
+  css: ["@/assets/scss/style.scss"],
   eslint: {
     lintOnStart: false
   },
   basicAuth: {
-    enabled: process.env.NODE_ENV !== 'production',
+    enabled: process.env.NODE_ENV !== "production",
     users: [
       {
         username: process.env.BASIC_USER || "",
-        password: process.env.BASIC_SECRET || "",
+        password: process.env.BASIC_SECRET || ""
       }
     ]
   },
@@ -77,4 +76,4 @@ export default defineNuxtConfig({
       }
     }
   }
-})
+});

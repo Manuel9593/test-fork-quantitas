@@ -59,7 +59,7 @@ export default {
     },
     submit () {
       const encodedTerm = this.searchTerm ? this.encodeUriStringMethod(this.searchTerm) : ''
-      navigateTo({path: `/facilities/${encodedTerm}`})
+      this.$router.push(`/facilities/${encodedTerm}`)
     }
   }
 }

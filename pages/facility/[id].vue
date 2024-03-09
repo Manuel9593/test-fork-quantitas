@@ -96,6 +96,7 @@
 import { useRoute } from '#app'
 import FacilityType from '~/types/prismaTypes/facilityType'
 const route = useRoute()
+const router = useRouter()
 const facilityId = route.params.id
 const facility = ref<FacilityType|null>(null);
 $fetch<FacilityType>(`/api/facility/${facilityId}`)
@@ -108,7 +109,7 @@ $fetch<FacilityType>(`/api/facility/${facilityId}`)
       ]
   })
 })
-.catch(() => {navigateTo({path:'/'})})
+.catch(() => {router.push({name:'home'})})
 </script>
 
 <style lang="scss" scoped>

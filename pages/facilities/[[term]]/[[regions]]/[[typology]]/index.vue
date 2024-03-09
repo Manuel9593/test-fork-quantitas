@@ -202,6 +202,105 @@ export default defineNuxtComponent({
     </div>
   </section>
 </template>
+<script lang="ts" setup>
+const route = useRoute()
+const { data: facilities, pending } = await useFetch<FacilityType[]>(
+  `/api/facilities/${route.params.term?.toString()}/${route.params.regions?.toString()}/${route.params.typology?.toString()}`
+);
+</script>
+
+<script lang="ts">
+import FacilityType from "~/types/prismaTypes/facilityType";
+import TypologyType from "~/types/prismaTypes/typologyType";
+import RegionType from "~/types/prismaTypes/regionType";
+import { useStore } from "~/composables/store";
+const store = useStore();
+export default defineNuxtComponent({
+  data() {
+    console.log(this.$route.params.regions)
+    return {
+      term: this.$route.params.term,
+      regions: this.$route.params.regions,
+      typology: this.$route.params.typology,
+      level: this.$route.params.level,
+    };
+  },
+  computed: {
+    isListView() {
+      return store.getIsListView.value;
+    },
+    fetchedRegions() {
+      return store.getRegions.value;
+    },
+    fetchedTypologies() {
+      return store.getTypologies.value;
+    },
+    getSearchedTerm() {
+      const searched_term = this.term instanceof Array ? this.term.join(" ") : this.term;
+      return !searched_term ? "tutte" : searched_term;
+    },
+    getSearchedRegions(): string[] {
+      return !this.regions || this.regions.length ? ["italia"] : (typeof this.regions === "string" ? this.regions.split(",") : this.regions);
+    },
+    getSearchedTypologyText() {
+      let text = "";
+      if (this.typology && this.fetchedTypologies) {
+        const selectedTypology = this.fetchedTypologies.find(
+          (e: TypologyType) => e.slug === this.typology
+        );
+        if (selectedTypology) text = selectedTypology.name;
+      }
+      return text;
+    },
+    getSearchedRegionsText() {
+      const searchedRegionsText: string[] = [];
+      if (this.regions && this.regions !== "italia") {
+        let regionsArray = this.regions;
+        if (typeof regionsArray === "string") {
+          regionsArray = regionsArray.split(",");
+        }
+        regionsArray.forEach(async (region) => {
+          const regionName = this.fetchedRegions.find((e: RegionType) => e.slug === region);
+          if (regionName) searchedRegionsText.push(regionName.name);
+        });
+        return searchedRegionsText.toString();
+      }
+      return null;
+    }
+  },
+  methods: {
+    encodeURI(string: string) {
+      return encodeURIString(string, "+");
+    },
+    changeResultsView(val: boolean) {
+      store.setIsListView(val);
+    },
+    filterByRegions(regions: string[]) {
+      regions = this.getSearchedRegions.length ? this.getSearchedRegions : ["italia"];
+      return this.$router.push(
+        "/facilities/" +
+          this.encodeURI(this.getSearchedTerm) +
+          "/" +
+          regions +
+          "/" +
+          this.typology
+      );
+    },
+    filterByTypology(typology: string) {
+      this.typology = typology
+      let regionsParam = this.getSearchedRegionsText || "italia";
+      return this.$router.push(
+        "/facilities/" +
+          this.encodeURI(this.getSearchedTerm) +
+          "/" +
+          regionsParam +
+          "/" +
+          typology
+      );
+    }
+  }
+});
+</script>
 
 <style lang="scss" scoped>
 header {

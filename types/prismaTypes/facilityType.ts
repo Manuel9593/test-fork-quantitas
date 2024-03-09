@@ -17,5 +17,6 @@ export default interface FacilityType {
     parentLevel: number | null
     parentRelationName: string | null
     parent?: FacilityType
+    hasChildren?: boolean,
     children?: FacilityType[]
 }
