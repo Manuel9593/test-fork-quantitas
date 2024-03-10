@@ -11,7 +11,6 @@
           <li v-for="{ id, slug, name } in fetchedRegions" :key="id" class="form-check">
             <input :id="'region-' + id" v-model="checkedRegions" name="regions" type="checkbox" :value="slug">
             <label class="active" :for="'region-' + id">
-
               <small>
                 {{ name }}
               </small>
@@ -42,7 +41,7 @@ export default {
       default: []
     },
     paramsRegions: {
-      type: Array<String> || String,
+      type: Array<String>,
       default: []
     },
     paramsTypology: {
@@ -55,14 +54,14 @@ export default {
   },
   data() {
     return {
-      checkedRegions: [] as string[],
+      checkedRegions: this.paramsRegions as string[],
       isRegionsFilterOpen: false as boolean
     }
   },
   computed: {
-    buttonText() {
+    buttonText(): string {
       if (this.checkedRegions.length === 1) {
-        return this.checkedRegions.at(0)
+        return this.checkedRegions[0]
       } else if (this.checkedRegions.length > 1) {
         return this.checkedRegions.length + ' regioni'
       }

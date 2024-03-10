@@ -50,13 +50,13 @@
                 />
               </i>
               <i
-                v-if="facility.grandParent"
+                v-if="facility.parent"
               >
                 -
                 <ui-link
-                  :to="{ name: 'facility', params: { id: facility.grandParent.id }}"
-                  :text="facility.grandParent.name"
-                  :title="'Vedi: ' + facility.grandParent.name"
+                  :to="{ name: 'facility', params: { id: facility.parent.id }}"
+                  :text="facility.parent.name"
+                  :title="'Vedi: ' + facility.parent.name"
                 />
               </i>
             </small>
@@ -77,11 +77,13 @@
 </template>
 
 <script lang="ts">
+import FacilityType from '~/types/prismaTypes/facilityType'
+
 export default {
   name: 'SearchTable',
   props: {
     facilities: {
-      type: Array<Object>,
+      type: Array<FacilityType>,
       default () {
         return []
       }

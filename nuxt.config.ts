@@ -2,7 +2,6 @@ import { defineNuxtConfig } from "nuxt/config"
 
 export default defineNuxtConfig({
   app: {
-    baseURL: '/',
     head: {
       title: 'icdp-frontend',
       htmlAttrs: {
@@ -20,6 +19,7 @@ export default defineNuxtConfig({
     },
   },
   ssr: false,
+  spaLoadingTemplate: false,
   dev: process.env.NODE_ENV !== 'production',
   devtools: {
     enabled: process.env.NODE_ENV !== 'production',
@@ -43,10 +43,11 @@ export default defineNuxtConfig({
     { src: '@/plugins/vClickOutsideVue3', mode: 'all'}
   ],
   components: [
-    { path: '@/components/layout/' },
-    { path: '@/components/ui-components/' },
-    { path: '@/components/search/' },
-    { path: '@/components/data/' }
+    { path: '~/components' },
+    { path: '~/components/data/' },
+    { path: '~/components/layout/' },
+    { path: '~/components/search/' },
+    { path: '~/components/ui-components/' },
   ],
   modules: [
     '@nuxtjs/eslint-module',

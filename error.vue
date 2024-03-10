@@ -24,17 +24,18 @@
   </div>
 </template>
 
-<script setup lang="ts">
-useHead({
-  title: 'Oooops! | ICDP - Digital Library'
-})
-</script>
-
 <script lang="ts">
+import { NuxtError } from '#app';
+
 export default {
+  head() {
+    return {
+      title: 'Oooops! | ICDP - Digital Library'
+    }
+  },
   props: {
     error: {
-      type: Object,
+      type: Object as () => NuxtError,
       default: null
     }
   }

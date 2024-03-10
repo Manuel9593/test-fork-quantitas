@@ -86,27 +86,26 @@
   </section>
 </template>
 <script lang="ts" setup>
+const route = useRoute()
 const { data: facilities, pending } = await useFetch<FacilityType[]>(
   `/api/facilities/${route.params.term?.toString()}/${route.params.regions?.toString()}/${route.params.typology?.toString()}`
 );
 </script>
 
 <script lang="ts">
-import { defineNuxtComponent, navigateTo, useFetch, useRoute } from "#app";
 import FacilityType from "~/types/prismaTypes/facilityType";
 import TypologyType from "~/types/prismaTypes/typologyType";
 import RegionType from "~/types/prismaTypes/regionType";
 import { useStore } from "~/composables/store";
 const store = useStore();
-const route = useRoute();
 export default defineNuxtComponent({
   data() {
-    console.log(route.params.regions)
+    console.log(this.$route.params.regions)
     return {
-      term: route.params.term,
-      regions: route.params.regions,
-      typology: route.params.typology,
-      level: route.params.level,
+      term: this.$route.params.term,
+      regions: this.$route.params.regions,
+      typology: this.$route.params.typology,
+      level: this.$route.params.level,
     };
   },
   computed: {
@@ -124,7 +123,7 @@ export default defineNuxtComponent({
       return !searched_term ? "tutte" : searched_term;
     },
     getSearchedRegions(): string[] {
-      return !this.regions ? ["italia"] : (typeof this.regions === "string" ? this.regions.split(",") : this.regions);
+      return !this.regions || this.regions.length ? ["italia"] : (typeof this.regions === "string" ? this.regions.split(",") : this.regions);
     },
     getSearchedTypologyText() {
       let text = "";
@@ -160,9 +159,8 @@ export default defineNuxtComponent({
       store.setIsListView(val);
     },
     filterByRegions(regions: string[]) {
-      this.regions = regions;
-      regions = this.getSearchedRegions ? this.getSearchedRegions : ["italia"];
-      navigateTo(
+      regions = this.getSearchedRegions.length ? this.getSearchedRegions : ["italia"];
+      return this.$router.push(
         "/facilities/" +
           this.encodeURI(this.getSearchedTerm) +
           "/" +
@@ -174,7 +172,7 @@ export default defineNuxtComponent({
     filterByTypology(typology: string) {
       this.typology = typology
       let regionsParam = this.getSearchedRegionsText || "italia";
-      navigateTo(
+      return this.$router.push(
         "/facilities/" +
           this.encodeURI(this.getSearchedTerm) +
           "/" +
