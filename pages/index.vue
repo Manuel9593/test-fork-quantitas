@@ -1,3 +1,158 @@
+<script lang="ts">
+import FacilityType from '~/types/prismaTypes/facilityType'
+import { useStore } from '~/composables/store';
+import 'chart.js/auto'
+import { Bar, Doughnut } from 'vue-chartjs'
+import grafici from './grafici.json'
+import GraphOutcome from '~/types/graphTypes';
+import DataTree from '~/components/data/data-tree.vue';
+
+const dataTree = ref<FacilityType[]>([]);
+$fetch<FacilityType[]>('/api/facilities-diagram')
+.then((result) => dataTree.value = result)
+const typologies = useStore().getTypologies
+
+export default {
+  components: { Bar, Doughnut, DataTree },
+  data () {
+    return {
+      dataTree,
+      typologies,
+      barChartOptions: {
+        maintainAspectRatio: false,
+        responsive: true,
+        scales: {
+          x: { grid: { display: false } },
+          y: { grid: { display: false } }
+        }
+      },
+      barPercentageOptions:  {
+        maintainAspectRatio: false,
+        responsive: true,
+        scales: {
+          x: { grid: { display: false } },
+          y: { grid: { display: false } }
+        },
+        tooltips: {
+          enabled: true,
+          mode: 'single',
+          callbacks: {
+            label: (context: any) => {
+              return context.parsed.x+' : ' + context.parsed.y + '%'
+            }
+          }
+        }
+      },
+      barSeparatorOptions: {
+        maintainAspectRatio: false,
+        responsive: true,
+        scales: {
+          y: { grid: { display: false } }
+        }
+      },
+      bigNumbersOptions: {
+        maintainAspectRatio: false,
+        responsive: true,
+        scales: {
+          x: { grid: { display: false } },
+          y: { grid: { display: false } }
+        },
+        tooltips: {
+          enabled: true,
+          mode: 'nearest',
+          callbacks: {
+            label: function (context: any) {
+              const num = context.dataset.yLabel;
+              let numStr = num.toString()
+              if (num > 1000000) { numStr = numStr.slice(0, numStr.length - 6) + '.' + numStr.slice(numStr.length - 6, numStr.length - 3) + '.' + numStr.slice(numStr.length - 3) } else if (num > 1000) { numStr = numStr.slice(0, numStr.length - 3) + '.' + numStr.slice(numStr.length - 3) }
+              return context.dataset.xLabel + ' : ' + numStr
+            }
+          }
+        }
+      },
+      separatorPercentageOptions: {
+        maintainAspectRatio: false,
+        responsive: true,
+        scales: {
+          y: { grid: { display: false } }
+        }
+      },
+      doughnutOptions: {
+        maintainAspectRatio: false,
+        responsive: true
+      },
+      doughnutPercentageOptions: {
+        maintainAspectRatio: false,
+        responsive: true,
+        tooltips: {
+          enabled: true,
+          mode: 'nearest',
+          callbacks: {
+            label (context: any, data: any) {
+              return data.labels[context.dataIndex] + ' : ' + data.datasets[context.datasetIndex].data[context.dataIndex] + '%'
+            }
+          }
+        }
+      },
+      grafici: grafici as unknown as GraphOutcome,
+      metadata: {
+        description: ''
+      },
+      lineChartData: {
+        labels: ['2016', '2017', '2018', '2019', '2020'],
+        datasets: [
+          {
+            label: 'Musei',
+            data: [52907177, 59401861, 70731744, 75852378, 14639939],
+            backgroundColor: '#365c77'
+          }
+        ]
+      },
+      barChartData: {
+        labels: ['2016', '2017', '2018', '2019', '2020'],
+        datasets: [
+          {
+            label: 'Educazione, Ricerca e Istituti Culturali',
+            data: [331724, 341784, 341454, 286509, 238474],
+            backgroundColor: '#FF555E'
+          },
+          {
+            label: 'Archeologia, Belle Arti e Paesaggio',
+            data: [391038, 465934, 816309, 602702, 266897],
+            backgroundColor: '#FF8650'
+          },
+          {
+            label: 'Archivi',
+            data: [269338, 317535, 325617, 343079, 261001],
+            backgroundColor: '#FFE981'
+          },
+          {
+            label: 'Biblioteche e Diritto d\'Autore',
+            data: [1110201, 1109746, 1147160, 1146784, 309329],
+            backgroundColor: '#8BF18B'
+          },
+          {
+            label: 'ICDP - Digital Library',
+            data: [681021, 837848, 838765, 728231, 296577],
+            backgroundColor: '#83B2FF'
+          },
+          {
+            label: 'Segretario Generale',
+            data: [22495, 41420, 36581, 51750, 78780],
+            backgroundColor: '#9B6EF3'
+          }
+        ]
+      }
+    }
+  },
+  head () {
+    return {
+      title: 'Cerca tra le strutture culturali italiane | ICDP - Digital Library',
+    }
+  }
+}
+</script>
+
 <template>
   <div>
     <section>
@@ -140,165 +295,6 @@
     </section>
   </div>
 </template>
-
-<script lang="ts" setup>
-import FacilityType from '~/types/prismaTypes/facilityType'
-import { useStore } from '~/composables/store';
-const dataTree = ref<FacilityType[]>([]);
-$fetch<FacilityType[]>('/api/facilities-diagram')
-.then((result) => dataTree.value = result)
-const typologies = useStore().getTypologies
-</script>
-
-<script lang="ts">
-import 'chart.js/auto'
-import { Bar, Doughnut } from 'vue-chartjs'
-import grafici from './grafici.json'
-import { useFetch } from 'nuxt/app';
-import GraphOutcome from '~/types/graphTypes';
-import { DataTree } from '#components';
-
-export default {
-  components: { Bar, Doughnut, DataTree },
-  data () {
-    return {
-      barChartOptions: {
-        maintainAspectRatio: false,
-        responsive: true,
-        scales: {
-          x: { grid: { display: false } },
-          y: { grid: { display: false } }
-        }
-      },
-      barPercentageOptions:  {
-        maintainAspectRatio: false,
-        responsive: true,
-        scales: {
-          x: { grid: { display: false } },
-          y: { grid: { display: false } }
-        },
-        tooltips: {
-          enabled: true,
-          mode: 'single',
-          callbacks: {
-            label: (context: any) => {
-              return context.parsed.x+' : ' + context.parsed.y + '%'
-            }
-          }
-        }
-      },
-      barSeparatorOptions: {
-        maintainAspectRatio: false,
-        responsive: true,
-        scales: {
-          y: { grid: { display: false } }
-        }
-      },
-      bigNumbersOptions: {
-        maintainAspectRatio: false,
-        responsive: true,
-        scales: {
-          x: { grid: { display: false } },
-          y: { grid: { display: false } }
-        },
-        tooltips: {
-          enabled: true,
-          mode: 'nearest',
-          callbacks: {
-            label: function (context: any) {
-              const num = context.dataset.yLabel;
-              let numStr = num.toString()
-              if (num > 1000000) { numStr = numStr.slice(0, numStr.length - 6) + '.' + numStr.slice(numStr.length - 6, numStr.length - 3) + '.' + numStr.slice(numStr.length - 3) } else if (num > 1000) { numStr = numStr.slice(0, numStr.length - 3) + '.' + numStr.slice(numStr.length - 3) }
-              return context.dataset.xLabel + ' : ' + numStr
-            }
-          }
-        }
-      },
-      separatorPercentageOptions: {
-        maintainAspectRatio: false,
-        responsive: true,
-        scales: {
-          y: { grid: { display: false } }
-        }
-      },
-      doughnutOptions: {
-        maintainAspectRatio: false,
-        responsive: true
-      },
-      doughnutPercentageOptions: {
-        maintainAspectRatio: false,
-        responsive: true,
-        tooltips: {
-          enabled: true,
-          mode: 'nearest',
-          callbacks: {
-            label (context: any, data: any) {
-              return data.labels[context.dataIndex] + ' : ' + data.datasets[context.datasetIndex].data[context.dataIndex] + '%'
-            }
-          }
-        }
-      },
-      grafici: grafici as unknown as GraphOutcome,
-      metadata: {
-        description: ''
-      },
-      lineChartData: {
-        labels: ['2016', '2017', '2018', '2019', '2020'],
-        datasets: [
-          {
-            label: 'Musei',
-            data: [52907177, 59401861, 70731744, 75852378, 14639939],
-            backgroundColor: '#365c77'
-          }
-        ]
-      },
-      barChartData: {
-        labels: ['2016', '2017', '2018', '2019', '2020'],
-        datasets: [
-          {
-            label: 'Educazione, Ricerca e Istituti Culturali',
-            data: [331724, 341784, 341454, 286509, 238474],
-            backgroundColor: '#FF555E'
-          },
-          {
-            label: 'Archeologia, Belle Arti e Paesaggio',
-            data: [391038, 465934, 816309, 602702, 266897],
-            backgroundColor: '#FF8650'
-          },
-          {
-            label: 'Archivi',
-            data: [269338, 317535, 325617, 343079, 261001],
-            backgroundColor: '#FFE981'
-          },
-          {
-            label: 'Biblioteche e Diritto d\'Autore',
-            data: [1110201, 1109746, 1147160, 1146784, 309329],
-            backgroundColor: '#8BF18B'
-          },
-          {
-            label: 'ICDP - Digital Library',
-            data: [681021, 837848, 838765, 728231, 296577],
-            backgroundColor: '#83B2FF'
-          },
-          {
-            label: 'Segretario Generale',
-            data: [22495, 41420, 36581, 51750, 78780],
-            backgroundColor: '#9B6EF3'
-          }
-        ]
-      }
-    }
-  },
-  head () {
-    return {
-      title: 'Cerca tra le strutture culturali italiane | ICDP - Digital Library',
-      meta: [
-        { hid: 'description', name: 'description', content: '' }
-      ]
-    }
-  }
-}
-</script>
 
 <style lang="scss" scoped>
 .search-form-wrapper {

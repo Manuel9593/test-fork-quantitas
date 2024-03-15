@@ -1,3 +1,4 @@
+import { createResolver } from "@nuxt/kit";
 import { defineNuxtConfig } from "nuxt/config"
 
 export default defineNuxtConfig({
@@ -19,7 +20,6 @@ export default defineNuxtConfig({
     },
   },
   ssr: false,
-  spaLoadingTemplate: false,
   dev: process.env.NODE_ENV !== 'production',
   devtools: {
     enabled: process.env.NODE_ENV !== 'production',
@@ -33,7 +33,8 @@ export default defineNuxtConfig({
       template: "treemap",
       projectRoot: ".",
       filename: "./.nuxt/analyze/result.mignon.html"
-    }
+    },
+    
   },
   sourcemap: {
     server: true,
@@ -49,11 +50,7 @@ export default defineNuxtConfig({
     { path: '~/components/search/' },
     { path: '~/components/ui-components/' },
   ],
-  modules: [
-    '@nuxtjs/eslint-module',
-    '@nuxt/devtools',
-    '@kgierke/nuxt-basic-auth'
-  ],
+  modules: ['@nuxtjs/eslint-module', '@nuxt/devtools', '@kgierke/nuxt-basic-auth', '@vite-pwa/nuxt'],
   css: [
     '@/assets/scss/style.scss'
   ],
