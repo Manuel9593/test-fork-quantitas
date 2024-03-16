@@ -10,17 +10,20 @@ export default defineNuxtComponent({
       term: this.$route.params.term,
       regions: this.$route.params.regions,
       typology: this.$route.params.typology,
-      level: this.$route.params.level,
+      level: this.$route.params.level
     };
   },
-  fetchKey: 'facilities',
-  async asyncData(app: any) {
-    const params = app._route.params
-    const { data: facilities, pending } = await useFetch<FacilityType[]>(`/api/facilities/${params.term?.toString()}/${params.regions?.toString()}/${params.typology?.toString()}`)
+  setup() {
+    const route = useRoute();
+    const {data: facilities, pending} = useFetch<FacilityType[]>(
+      `/api/facilities/`+
+      `${route.params.term.toString()}/${route.params.regions.toString()}`+
+      `/${route.params.typology?.toString()}`
+    )
     return {
       facilities,
       pending
-    }
+    };
   },
   computed: {
     isListView() {
@@ -33,11 +36,16 @@ export default defineNuxtComponent({
       return store.getTypologies.value;
     },
     getSearchedTerm() {
-      const searched_term = this.term instanceof Array ? this.term.join(" ") : this.term;
+      const searched_term =
+        this.term instanceof Array ? this.term.join(" ") : this.term;
       return !searched_term ? "tutte" : searched_term;
     },
     getSearchedRegions(): string[] {
-      return !this.regions ? ["italia"] : (typeof this.regions === "string" ? this.regions.split(",") : this.regions);
+      return !this.regions
+        ? ["italia"]
+        : typeof this.regions === "string"
+        ? this.regions.split(",")
+        : this.regions;
     },
     getSearchedTypologyText() {
       let text = "";
@@ -57,7 +65,9 @@ export default defineNuxtComponent({
           regionsArray = regionsArray.split(",");
         }
         regionsArray.forEach(async (region) => {
-          const regionName = this.fetchedRegions.find((e: RegionType) => e.slug === region);
+          const regionName = this.fetchedRegions.find(
+            (e: RegionType) => e.slug === region
+          );
           if (regionName) searchedRegionsText.push(regionName.name);
         });
         return searchedRegionsText.toString();
@@ -85,7 +95,7 @@ export default defineNuxtComponent({
       );
     },
     filterByTypology(typology: string) {
-      this.typology = typology
+      this.typology = typology;
       let regionsParam = this.getSearchedRegionsText || "italia";
       navigateTo(
         "/facilities/" +
@@ -106,9 +116,14 @@ export default defineNuxtComponent({
       <ui-search-form :searched-term="getSearchedTerm" />
       <h1 class="my-4 h2 fw-light">
         <strong>{{ facilities ? facilities.length : 0 }}</strong>
-        {{ facilities ? ( facilities.length === 1 ? "risultato" : "risultati") : "risultato" }} per «{{
-          term
-        }}»
+        {{
+          facilities
+            ? facilities.length === 1
+              ? "risultato"
+              : "risultati"
+            : "risultato"
+        }}
+        per «{{ term }}»
       </h1>
       <p v-if="getSearchedRegionsText || getSearchedTypologyText">
         Filtri:
@@ -135,7 +150,7 @@ export default defineNuxtComponent({
             :params-typology="getSearchedTypologyText"
             @filter-typology="filterByTypology"
           />
-        </div>  
+        </div>
         <div class="col-12 col-sm mb-2">
           <!-- search-filters-level -->
         </div>
@@ -145,7 +160,7 @@ export default defineNuxtComponent({
       <li class="nav-item">
         <ui-button
           class="nav-link"
-          :class="{ active: isListView }"          
+          :class="{ active: isListView }"
           :text="'Griglia'"
           :title="'Vedi i risultati in una griglia'"
           @click="changeResultsView(true)"
@@ -162,7 +177,7 @@ export default defineNuxtComponent({
       </li>
     </ul>
     <div v-if="!pending">
-      <div v-if="facilities">
+      <div v-if="facilities && facilities.length">
         <SearchList v-if="isListView" :facilities="facilities" />
         <SearchTable v-else :facilities="facilities" />
       </div>

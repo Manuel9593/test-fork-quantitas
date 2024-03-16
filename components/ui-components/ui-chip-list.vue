@@ -17,14 +17,16 @@
   </ul>
 </template>
 
-<script>
+<script lang="ts">
+import TypologyType from '~/types/prismaTypes/typologyType';
+
 export default {
   name: 'UiChipList',
   props: {
     list: {
-      type: Array,
+      type: Array<TypologyType>,
       default () {
-        return []
+        return [] as TypologyType[]
       }
     }
   }
