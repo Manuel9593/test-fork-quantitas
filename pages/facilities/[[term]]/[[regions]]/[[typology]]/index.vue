@@ -1,113 +1,26 @@
-<template>
-  <section>
-    <header>
-      <ui-search-form :searched-term="getSearchedTerm" />
-      <h1 class="my-4 h2 fw-light">
-        <strong>{{ facilities ? facilities.length : 0 }}</strong>
-        {{ facilities ? ( facilities.length === 1 ? "risultato" : "risultati") : "risultato" }} per «{{
-          term
-        }}»
-      </h1>
-      <p v-if="getSearchedRegionsText || getSearchedTypologyText">
-        Filtri:
-        <b v-if="getSearchedTypologyText">{{ getSearchedTypologyText }}</b>
-        <span v-if="getSearchedRegionsText">
-          in <i>{{ getSearchedRegionsText }}</i>
-        </span>
-      </p>
-      <div class="row mb-4">
-        <div class="col-12 col-sm mb-2">
-          <SearchFiltersRegions
-            :fetched-regions="fetchedRegions"
-            :searched-term="getSearchedTerm"
-            :params-regions="getSearchedRegions"
-            :params-typology="getSearchedTypologyText"
-            @filter-regions="filterByRegions"
-          />
-        </div>
-        <div class="col-12 col-sm mb-2">
-          <SearchFiltersTypology
-            :fetched-typology="fetchedTypologies"
-            :searched-term="getSearchedTerm"
-            :params-regions="getSearchedRegions"
-            :params-typology="getSearchedTypologyText"
-            @filter-typology="filterByTypology"
-          />
-        </div>
-        <div class="col-12 col-sm mb-2">
-          <!-- search-filters-level -->
-        </div>
-      </div>
-    </header>
-    <ul class="nav nav-tabs auto mb-4">
-      <li class="nav-item">
-        <ui-button
-          class="nav-link"
-          :class="{ active: isListView }"
-          :text="'Griglia'"
-          :title="'Vedi i risultati in una griglia'"
-          @click="changeResultsView(true)"
-        />
-      </li>
-      <li class="nav-item">
-        <ui-button
-          class="nav-link"
-          :class="{ active: !isListView }"
-          :text="'Tabella'"
-          :title="'Vedi i risultati in una tabella'"
-          @click="changeResultsView(false)"
-        />
-      </li>
-    </ul>
-    <div v-if="!pending">
-      <div v-if="facilities">
-        <SearchList v-if="isListView" :facilities="facilities" />
-        <SearchTable v-else :facilities="facilities" />
-      </div>
-      <div v-else class="text-center">
-        <h2>Non vedo risultati!</h2>
-        <p>
-          <ui-link
-            :to="{ name: 'cerca', params: {} }"
-            :title="'Rimuovi tutti i filtri'"
-            :text="'Annulla la ricerca'"
-          />
-        </p>
-        <ui-404-image />
-      </div>
-    </div>
-    <div v-else class="row align-items-center loader-wrapper">
-      <div class="col">
-        <div class="progress-spinner progress-spinner-active m-auto">
-          <span class="visually-hidden">Caricamento...</span>
-        </div>
-      </div>
-    </div>
-  </section>
-</template>
-<script lang="ts" setup>
-const { data: facilities, pending } = await useFetch<FacilityType[]>(
-  `/api/facilities/${route.params.term?.toString()}/${route.params.regions?.toString()}/${route.params.typology?.toString()}`
-);
-</script>
-
 <script lang="ts">
-import { defineNuxtComponent, navigateTo, useFetch, useRoute } from "#app";
 import FacilityType from "~/types/prismaTypes/facilityType";
 import TypologyType from "~/types/prismaTypes/typologyType";
 import RegionType from "~/types/prismaTypes/regionType";
 import { useStore } from "~/composables/store";
 const store = useStore();
-const route = useRoute();
 export default defineNuxtComponent({
   data() {
-    console.log(route.params.regions)
     return {
-      term: route.params.term,
-      regions: route.params.regions,
-      typology: route.params.typology,
-      level: route.params.level,
+      term: this.$route.params.term,
+      regions: this.$route.params.regions,
+      typology: this.$route.params.typology,
+      level: this.$route.params.level,
     };
+  },
+  fetchKey: 'facilities',
+  async asyncData(app: any) {
+    const params = app._route.params
+    const { data: facilities, pending } = await useFetch<FacilityType[]>(`/api/facilities/${params.term?.toString()}/${params.regions?.toString()}/${params.typology?.toString()}`)
+    return {
+      facilities,
+      pending
+    }
   },
   computed: {
     isListView() {
@@ -186,6 +99,94 @@ export default defineNuxtComponent({
   }
 });
 </script>
+
+<template>
+  <section>
+    <header>
+      <ui-search-form :searched-term="getSearchedTerm" />
+      <h1 class="my-4 h2 fw-light">
+        <strong>{{ facilities ? facilities.length : 0 }}</strong>
+        {{ facilities ? ( facilities.length === 1 ? "risultato" : "risultati") : "risultato" }} per «{{
+          term
+        }}»
+      </h1>
+      <p v-if="getSearchedRegionsText || getSearchedTypologyText">
+        Filtri:
+        <b v-if="getSearchedTypologyText">{{ getSearchedTypologyText }}</b>
+        <span v-if="getSearchedRegionsText">
+          in <i>{{ getSearchedRegionsText }}</i>
+        </span>
+      </p>
+      <div class="row mb-4">
+        <div class="col-12 col-sm mb-2">
+          <SearchFiltersRegions
+            :fetched-regions="fetchedRegions"
+            :searched-term="getSearchedTerm"
+            :params-regions="getSearchedRegions"
+            :params-typology="getSearchedTypologyText"
+            @filter-regions="filterByRegions"
+          />
+        </div>
+        <div class="col-12 col-sm mb-2">
+          <SearchFiltersTypology
+            :fetched-typology="fetchedTypologies"
+            :searched-term="getSearchedTerm"
+            :params-regions="getSearchedRegions"
+            :params-typology="getSearchedTypologyText"
+            @filter-typology="filterByTypology"
+          />
+        </div>  
+        <div class="col-12 col-sm mb-2">
+          <!-- search-filters-level -->
+        </div>
+      </div>
+    </header>
+    <ul class="nav nav-tabs auto mb-4">
+      <li class="nav-item">
+        <ui-button
+          class="nav-link"
+          :class="{ active: isListView }"          
+          :text="'Griglia'"
+          :title="'Vedi i risultati in una griglia'"
+          @click="changeResultsView(true)"
+        />
+      </li>
+      <li class="nav-item">
+        <ui-button
+          class="nav-link"
+          :class="{ active: !isListView }"
+          :text="'Tabella'"
+          :title="'Vedi i risultati in una tabella'"
+          @click="changeResultsView(false)"
+        />
+      </li>
+    </ul>
+    <div v-if="!pending">
+      <div v-if="facilities">
+        <SearchList v-if="isListView" :facilities="facilities" />
+        <SearchTable v-else :facilities="facilities" />
+      </div>
+      <div v-else class="text-center">
+        <h2>Non vedo risultati!</h2>
+        <p>
+          <ui-link
+            :to="{ name: 'cerca', params: {} }"
+            :title="'Rimuovi tutti i filtri'"
+            :text="'Annulla la ricerca'"
+          />
+        </p>
+        <ui-404-image />
+      </div>
+    </div>
+    <div v-else class="row align-items-center loader-wrapper">
+      <div class="col">
+        <div class="progress-spinner progress-spinner-active m-auto">
+          <span class="visually-hidden">Caricamento...</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</template>
 
 <style lang="scss" scoped>
 header {
