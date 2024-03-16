@@ -18,6 +18,12 @@ $ npm install
 
 ### Prisma SQLite setup
 
+Generate and Initialize SQLite database & Prisma Client
+
+```bash
+$ npx prisma init
+```
+
 Migrate schema to SQLite database
 
 ```bash
@@ -46,7 +52,14 @@ For detailed explanation on how things work in the database, check out the [docu
 
 ### Frontend build Setup
 
-Serve the frontend with hot reload at `http://localhost:3000`:
+
+Generate Nuxt Files for development launch
+
+```bash 
+$ npm run prepare
+```
+
+Serve the frontend with hot reload at `http://localhost:3005`:
 
 ```bash 
 $ npm run dev

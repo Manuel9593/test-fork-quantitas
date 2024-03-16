@@ -55,7 +55,7 @@ export default {
 <style lang="scss" scoped>
 .btn-select {
     border: none;
-    background: $white url('~assets/svg/it-expand.svg') no-repeat right;
+    background: $white url('~/assets/svg/it-expand.svg') no-repeat right;
     border-bottom: 1px solid #5c6f82;
     border-radius: 0;
     padding: 0.375rem 0.5rem;
@@ -67,7 +67,7 @@ export default {
     text-align: left;
 
     &--selected {
-      background: $white url('~assets/svg/it-collapse.svg') no-repeat right;
+      background: $white url('~/assets/svg/it-collapse.svg') no-repeat right;
   }
 }
 .btn:focus {

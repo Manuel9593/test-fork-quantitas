@@ -21,9 +21,11 @@ export default defineNuxtConfig({
   },
   ssr: false,
   dev: process.env.NODE_ENV !== 'production',
+  devServer: {
+    port: 3005
+  },
   devtools: {
     enabled: process.env.NODE_ENV !== 'production',
-
     timeline: {
       enabled: true
     }
