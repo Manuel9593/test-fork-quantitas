@@ -5,3 +5,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@layer base {
+  h1 {
+    @apply text-5xl;
+    @apply font-bold;
+  }
+  h2 {
+    @apply text-3xl;
+    @apply font-bold;
+  }
+  h3 {
+    @apply font-bold;
+    @apply text-xl;
+  }
+  b {
+    @apply font-bold
+  }
+  i {
+    @apply italic
+  }
+  html {
+    font-family: "Titillium Web", system-ui, -apple-system, BlinkMacSystemFont,
+      "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+      "Helvetica Neue", sans-serif;
+  }
+}

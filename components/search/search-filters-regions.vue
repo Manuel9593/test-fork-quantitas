@@ -1,36 +1,3 @@
-<template>
-  <div class="regions-filter">
-    <label>
-      <b>Filtra per regione</b>
-    </label>
-    <ui-button class="btn btn-select" :class="{ 'btn-select--selected': isRegionsFilterOpen }" :text="buttonText"
-      @click="openRegionFilter" />
-    <div v-if="isRegionsFilterOpen" :v-click-outside="openRegionFilter" class="regions-filter-form">
-      <form method="GET">
-        <ul class="m-0 list-unstyled">
-          <li v-for="{ id, slug, name } in fetchedRegions" :key="id" class="form-check">
-            <input :id="'region-' + id" v-model="checkedRegions" name="regions" type="checkbox" :value="slug" />
-            <label class="active" :for="'region-' + id">
-              <small>
-                {{ name }}
-              </small>
-            </label>
-          </li>
-        </ul>
-        <div class="row align-items-center p-2">
-          <div class="col">
-            <ui-button class="btn" :text="'Cancella'" @click.prevent="removeRegions()" />
-          </div>
-          <div class="col text-end">
-            <ui-button class="btn btn-primary" :text="'Filtra (' + checkedRegions.length + ')'" :submit="true"
-              @click.prevent="submit()" />
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-</template>
-
 <script lang="ts">
 import RegionType from '~/types/prismaTypes/regionType'
 export default {
@@ -85,6 +52,39 @@ export default {
   emits: ['filter-regions']
 }
 </script>
+
+<template>
+  <div class="regions-filter">
+    <label>
+      <b>Filtra per regione</b>
+    </label>  
+    <ui-button class="btn btn-select" :class="{ 'btn-select--selected': isRegionsFilterOpen }" :text="buttonText"
+      @click="openRegionFilter" />
+    <div v-if="isRegionsFilterOpen" :v-click-outside="openRegionFilter" class="regions-filter-form">
+      <form method="GET">
+        <ul class="m-0 list-unstyled">
+          <li v-for="{ id, slug, name } in fetchedRegions" :key="id" class="form-check">
+            <input :id="'region-' + id" v-model="checkedRegions" name="regions" type="checkbox" :value="slug" />
+            <label class="active" :for="'region-' + id">
+              <small>
+                {{ name }}
+              </small>  
+            </label>  
+          </li>  
+        </ul>  
+        <div class="row align-items-center p-2">
+          <div class="col">
+            <ui-button class="btn" :text="'Cancella'" @click.prevent="removeRegions()" />
+          </div>  
+          <div class="col text-end">
+            <ui-button class="btn btn-primary" :text="'Filtra (' + checkedRegions.length + ')'" :submit="true"
+              @click.prevent="submit()" />
+          </div>    
+        </div>  
+      </form>  
+    </div>  
+  </div>    
+</template>
 
 <style lang="scss" scoped>
 .regions-filter {

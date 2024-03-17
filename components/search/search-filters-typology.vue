@@ -6,7 +6,7 @@
     <ui-button class="btn btn-select" :class="{ 'btn-select--selected': isTypologyFilterOpen }"
       :text="buttonText || truncate(buttonText, 24)" @click="openTypologyFilter" />
     <div v-if="isTypologyFilterOpen" :v-click-outside="openTypologyFilter" class="typology-filter-form">
-      <ul class="m-0 list-unstyled">
+      <ul class="m-0 list-none">
         <li v-for="{ id, slug, name } in fetchedTypology" :key="id">
           <ui-button :id="'typology-' + id" v-model="checkedTypology" class="btn text-start fw-light" :text="name"
             @click="submit(slug)" />

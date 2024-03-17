@@ -1,4 +1,3 @@
-import { createResolver } from "@nuxt/kit";
 import { defineNuxtConfig } from "nuxt/config";
 
 export default defineNuxtConfig({
@@ -20,11 +19,14 @@ export default defineNuxtConfig({
       link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
     }
   },
+  ssr: false,
+  tailwindcss: {
+    cssPath: "./assets/scss/style.scss"
+  },
   colorMode: {
     preference: 'light',
     classSuffix: ''
   },
-  ssr: false,
   dev: process.env.NODE_ENV !== "production",
   devtools: {
     enabled: process.env.NODE_ENV !== "production",
@@ -57,11 +59,13 @@ export default defineNuxtConfig({
     "@nuxt/devtools",
     "@kgierke/nuxt-basic-auth",
     "@nuxt/ui",
-    "@nuxtjs/color-mode"
+    "@nuxtjs/color-mode",
+    "@nuxtjs/tailwindcss",
+    "@nuxt/image"
   ],
   css: ["@/assets/scss/style.scss"],
   eslint: {
-    lintOnStart: false
+    lintOnStart: false,
   },
   basicAuth: {
     enabled: process.env.NODE_ENV !== "production",

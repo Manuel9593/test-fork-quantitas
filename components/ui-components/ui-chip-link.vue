@@ -1,17 +1,18 @@
 <template>
-  <UButton
-    color="black"
-    variant="link"
-    :to="to"
-    :title="title"
-  >
-    {{ text }}
-  </UButton>
+    <UButton
+        color="white"
+        variant="outline"
+        :ui="{rounded: 'rounded-full', font: 'font-semibold'}"
+        :to="to"
+        :title="title"
+    >
+        {{ text }}
+    </UButton>
 </template>
 
 <script lang="ts">
 export default {
-  name: 'UiLink',
+  name: 'UiChipLink',
   props: {
     to: {
       type: Object,

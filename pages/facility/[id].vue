@@ -1,15 +1,18 @@
 <template>
   <section class="mb-5" v-if="facility">
     <header class="my-4">
-      <small class="badge rounded-pill bg-dark mb-2 text-capitalize">
+      <UBadge
+        class="capitalize font-semibold bg-slate-800"
+        :title="facility.typology"
+      >
         {{ facility.typology }}
-      </small>
+      </UBadge>
       <h1>
         {{ facility.name }}
       </h1>
     </header>
-    <div class="bg-white border border-secondary p-4">
-      <ul class="m-0 list-unstyled">
+    <div class="bg-white border p-4">
+      <ul class="m-0 list-none">
         <li class="mb-3">
           <address class="m-0">
             <span class="icon icon-map-marker" />
@@ -42,47 +45,51 @@
       </ul>
     </div>
     <div v-if="facility.children" class="mt-5">
-      <h2 class="h4 fw-light mb-3">
+      <h2 class="font-light mb-3">
         <b>{{ facility.children.length }}</b> strutture amministrate da <i>{{ facility.name }}</i>
       </h2>
-      <div class="table-responsive">
-        <table class="table table-striped">
+      <div>
+        <table class="table-auto">
           <thead>
             <tr>
-              <th scope="col">
+              <th>
                 Nome
               </th>
-              <th scope="col" class="text-center">
+              <th class="text-center">
                 Tipologia
               </th>
-              <th scope="col">
+              <th>
                 Sede
               </th>
-              <th scope="col" />
+              <th></th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="child in facility.children" :key="child.id">
-              <th scope="row">
+              <th>
                 <small>
                   <b>{{ child.name }}</b>
                 </small>
               </th>
               <td class="text-center">
-                <small class="badge rounded-pill bg-dark mb-2 text-capitalize">
+                <UBadge
+                  class="capitalize font-semibold bg-slate-800"
+                  size="lg"
+                  :title="facility.typology"
+                >
                   {{ child.typology }}
-                </small>
+                </UBadge>
               </td>
               <td>
                 <small>
-                  <address class="m-0">
+                  <address>
                     <i>{{ child.street }}. {{ child.city }} - {{ child.region }}</i>
                   </address>
                 </small>
               </td>
               <td>
                 <ui-link :to="{ name: 'facility', params: { id: child.id } }" :text="'vedi'" :title="'Vedi: ' + child.name"
-                  class="btn btn-sm bg-primary-dark text-white" />
+                  class="bg-slate-900 text-white" />
               </td>
             </tr>
           </tbody>
@@ -111,9 +118,3 @@ $fetch<FacilityType>(`/api/facility/${facilityId}`)
 })
 .catch(() => {router.push({name:'home'})})
 </script>
-
-<style lang="scss" scoped>
-div.bg-white {
-  box-shadow: 0 0.1rem 0.3rem rgba(0, 0, 0, 0.15);
-}
-</style>

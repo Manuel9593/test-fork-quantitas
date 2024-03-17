@@ -2,18 +2,18 @@
   <form
     action="/facilities/"
     method="GET"
-    class="search-form row mx-0 my-3"
+    class="flex flex-col gap-3 mx-0 my-3"
     @submit.stop.prevent="submit()"
   >
     <label
-      class="h5 mt-5 active col-6"
-      :class="{'visually-hidden': isInHeader}"
+      class="font-bold text-2xl mt-5"
+      :class="{'hidden': isInHeader}"
       for="facility-search"
     >
       <b>Cerca tra le strutture culturali italiane</b>
     </label>
-    <div class="form-group row">
-      <div class="search-form-outline col-auto">
+    <div class="flex flex-row gap-4 content-center">
+      <div class="basis-3/4">
         <UInput
           id="facility-search"
           v-model="searchTerm"
@@ -27,9 +27,9 @@
         />
       </div>
       <ui-button
-        class="btn btn-primary search-form-btn col-auto"
+        class="basis-1/4"
         :text="'Cerca'"
-        :icon="'icon icon-search icon-in-line'"
+        :icon="'i-heroicons-magnifying-glass'"
         :submit="true"
       />
     </div>
@@ -67,31 +67,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.search-form {
-  &-label {
-    width: 100%;
-  }
-  &-outline {
-    width: calc( 100% - 128px );
-  }
-  &-control {
-    height: 50px;
-    font-weight: 400;
-    font-size: 15px;
-
-    &::placeholder {
-      color: #c2c7cc;
-    }
-  }
-  &-btn {
-    border-radius: 0 4px 4px 0;
-  }
-
-  input:focus {
-    border-color: #ff9900 #{!important};
-    box-shadow: 0 0 0 2px #ff9900 #{!important};
-  }
-}
-</style>

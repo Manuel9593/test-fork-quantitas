@@ -1,21 +1,23 @@
 <template>
   <div class="bg-cyan-800">
-    <header id="main-header" class="container-fluid">
-      <div class="row-auto items-center">
-        <div class="col-12 col-sm">
-          <p class="logo icon icon-logo-white my-3">
-            <ui-link
-              :to="{ name: 'home', params: {} }"
-              :title="'Torna alla Homepage'"
-              :text="'Digital Library. Istituto centrale per la digitalizzazione del patrimonio culturale'"
+    <header id="main-header" class="container">
+      <div class="flex flex-row items-center">
+        <div class="basis-1/2 flex-initial">
+          <ui-image-link
+            :to="{ name: 'home', params: {} }"
+            :title="'Torna alla Homepage'"
+            class="m-3 inline-flex"
+          >
+            <NuxtImg
+              src="/img/icdp-logo-white.svg"
+              alt="Digital Library. Istituto centrale per la digitalizzazione del patrimonio culturale"
+              width="280px"
+              height="91px"
             />
-          </p>
+          </ui-image-link>
         </div>
-
-        <div v-if="hasSearchForm" class="col-12 col-sm">
-          <ui-search-form
-            :is-in-header="true"
-          />
+        <div v-if="hasSearchForm" class="basis-1/2">
+          <ui-search-form :is-in-header="true" />
         </div>
       </div>
     </header>
@@ -24,40 +26,40 @@
 
 <script>
 export default {
-  name: 'MainHeader',
+  name: "MainHeader",
   computed: {
-    hasSearchForm () {
-      const route = useRoute()
+    hasSearchForm() {
+      const route = useRoute();
       if (
-        route.name === 'search' ||
-        route.name === 'index' ||
-        route.name === 'home'
+        route.name === "search" ||
+        route.name === "index" ||
+        route.name === "home"
       ) {
-        return false
+        return false;
       } else {
-        return true
+        return true;
       }
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
-  #main-header {
-    color: $white;
+#main-header {
+  color: $white;
 
-    .logo {
-      padding: 0;
-      margin: 0;
-      width: 280px;
-      height: 91px;
-      background-size: contain;
-      text-indent: -99999999em;
+  .logo {
+    padding: 0;
+    margin: 0;
+    width: 280px;
+    height: 91px;
+    background-size: contain;
+    text-indent: -99999999em;
 
-      a {
-        display: block;
-        height: 100%;
-      }
+    a {
+      display: block;
+      height: 100%;
     }
   }
+}
 </style>

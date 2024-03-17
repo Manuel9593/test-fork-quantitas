@@ -3,6 +3,7 @@ import FacilityType from "~/types/prismaTypes/facilityType";
 import TypologyType from "~/types/prismaTypes/typologyType";
 import RegionType from "~/types/prismaTypes/regionType";
 import { useStore } from "~/composables/store";
+import { UCheckbox } from "#build/components";
 const store = useStore();
 export default defineNuxtComponent({
   data() {
@@ -12,22 +13,27 @@ export default defineNuxtComponent({
       typology: this.$route.params.typology,
       level: this.$route.params.level,
       tabItems: [
-        { label: "Tabella", content: "Tabella" },
-        { label: "Griglia", content: "Griglia" }
-      ]
+        { key: "table", label: "Tabella" },
+        { key: "grid", label: "Griglia" }
+      ],
+      regionSelected: false
     };
   },
   setup() {
     const route = useRoute();
-    const {data: facilities, pending} = useFetch<FacilityType[]>(
-      `/api/facilities/`+
-      `${route.params.term.toString()}/${route.params.regions.toString()}`+
+    const facilities = ref<FacilityType[]>([]);
+    const pending = ref<boolean>(true);
+    useFetch<FacilityType[]>(
+      `/api/facilities/` +
+      `${route.params.term.toString()}/${route.params.regions.toString()}` +
       `/${route.params.typology?.toString()}`
-    )
+    ).then(async (asyncData) => {
+      facilities.value = asyncData.data.value || [];
+      pending.value = asyncData.pending.value;
+    });
     return {
-      facilities,
-      pending
-    }
+      facilities, pending
+    };
   },
   computed: {
     isListView() {
@@ -42,16 +48,9 @@ export default defineNuxtComponent({
     getSearchedTerm() {
       const searched_term =
         this.term instanceof Array ? this.term.join(" ") : this.term;
-      const searched_term =
-        this.term instanceof Array ? this.term.join(" ") : this.term;
       return !searched_term ? "tutte" : searched_term;
     },
     getSearchedRegions(): string[] {
-      return !this.regions
-        ? ["italia"]
-        : typeof this.regions === "string"
-        ? this.regions.split(",")
-        : this.regions;
       return !this.regions
         ? ["italia"]
         : typeof this.regions === "string"
@@ -79,9 +78,6 @@ export default defineNuxtComponent({
           const regionName = this.fetchedRegions.find(
             (e: RegionType) => e.slug === region
           );
-          const regionName = this.fetchedRegions.find(
-            (e: RegionType) => e.slug === region
-          );
           if (regionName) searchedRegionsText.push(regionName.name);
         });
         return searchedRegionsText.toString();
@@ -90,6 +86,9 @@ export default defineNuxtComponent({
     }
   },
   methods: {
+    basic() {
+      console.log("vbbdcnnbc", this.regionSelected);
+    },
     encodeURI(string: string) {
       return encodeURIString(string, "+");
     },
@@ -99,7 +98,7 @@ export default defineNuxtComponent({
     filterByRegions(regions: string[]) {
       this.regions = regions;
       regions = this.getSearchedRegions ? this.getSearchedRegions : ["italia"];
-      navigateTo(
+      this.$router.push(
         "/facilities/" +
           this.encodeURI(this.getSearchedTerm) +
           "/" +
@@ -110,9 +109,8 @@ export default defineNuxtComponent({
     },
     filterByTypology(typology: string) {
       this.typology = typology;
-      this.typology = typology;
       let regionsParam = this.getSearchedRegionsText || "italia";
-      navigateTo(
+      this.$router.push(
         "/facilities/" +
           this.encodeURI(this.getSearchedTerm) +
           "/" +
@@ -129,16 +127,8 @@ export default defineNuxtComponent({
   <section>
     <header>
       <ui-search-form :searched-term="getSearchedTerm" />
-      <h1 class="my-4 h2 fw-light">
-        <strong>{{ facilities ? facilities.length : 0 }}</strong>
-        {{
-          facilities
-            ? facilities.length === 1
-              ? "risultato"
-              : "risultati"
-            : "risultato"
-        }}
-        per «{{ term }}»
+      <h1 class="my-4">
+        {{ facilities ? facilities.length : 0 }}
         {{
           facilities
             ? facilities.length === 1
@@ -155,8 +145,8 @@ export default defineNuxtComponent({
           in <i>{{ getSearchedRegionsText }}</i>
         </span>
       </p>
-      <div class="row mb-4">
-        <div class="col-12 col-sm mb-2">
+      <div class="flex flex-row mb-4">
+        <div class="flex-initial">
           <SearchFiltersRegions
             :fetched-regions="fetchedRegions"
             :searched-term="getSearchedTerm"
@@ -165,7 +155,7 @@ export default defineNuxtComponent({
             @filter-regions="filterByRegions"
           />
         </div>
-        <div class="col-12 col-sm mb-2">
+        <div class="flex-initial">
           <SearchFiltersTypology
             :fetched-typology="fetchedTypologies"
             :searched-term="getSearchedTerm"
@@ -174,49 +164,25 @@ export default defineNuxtComponent({
             @filter-typology="filterByTypology"
           />
         </div>
-        <div class="col-12 col-sm mb-2">
-          <!-- search-filters-level -->
-        </div>
+        <!-- <div class="">
+          search-filters-level
+        </div> -->
       </div>
     </header>
-    <div>
-      <UTabs
-        :items="tabItems"
-        :ui="{
-          list: {
-            background: 'bg-inherit', tab: {
-              active: 'text-gray-900 dark:text-black dark:font-medium'
-            }
-          }
-        }"
-      >
-      </UTabs>
-    </div>
-    <ul class="nav nav-tabs auto mb-4">
-      <li class="nav-item">
-        <ui-button
-          class="nav-link"
-          :class="{ active: isListView }"
-          :text="'Griglia'"
-          :title="'Vedi i risultati in una griglia'"
-          @click="changeResultsView(true)"
-        />
-      </li>
-      <li class="nav-item">
-        <ui-button
-          class="nav-link"
-          :class="{ active: !isListView }"
-          :text="'Tabella'"
-          :title="'Vedi i risultati in una tabella'"
-          @click="changeResultsView(false)"
-        />
-      </li>
-    </ul>
     <div v-if="!pending">
-      <div v-if="facilities && facilities.length">
-        <SearchList v-if="isListView" :facilities="facilities" />
-        <SearchTable v-else :facilities="facilities" />
-      </div>
+      <UTabs
+        v-if="facilities && facilities.length"
+        :items="tabItems"
+      >
+        <template #item="{item}: {item: {key: string, label: string}}">
+          <div v-if='item.key === "table"'>
+            <SearchList :facilities="facilities" />
+          </div>
+          <div v-else-if='item.key === "grid"'>
+            <SearchTable :facilities="facilities" />
+          </div>
+        </template>
+      </UTabs>
       <div v-else class="text-center">
         <h2>Non vedo risultati!</h2>
         <p>
@@ -229,25 +195,5 @@ export default defineNuxtComponent({
         <ui-404-image />
       </div>
     </div>
-    <div v-else class="row align-items-center loader-wrapper">
-      <div class="col">
-        <div class="progress-spinner progress-spinner-active m-auto">
-          <span class="visually-hidden">Caricamento...</span>
-        </div>
-      </div>
-    </div>
   </section>
 </template>
-
-<style lang="scss" scoped>
-header {
-  max-width: 920px;
-  margin: 0 auto;
-}
-
-.nav-link:focus {
-  border-color: #ff9900;
-  box-shadow: 0 0 0 2px #ff9900;
-  outline: none;
-}
-</style>

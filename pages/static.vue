@@ -15,12 +15,11 @@
     </div>
     <div
       v-else
-      class="row align-items-center loader-wrapper"
+      class="flex items-center"
     >
-      <div class="col">
-        <div class="progress-spinner progress-spinner-active m-auto">
-          <span class="visually-hidden">Caricamento...</span>
-        </div>
+      <div class="flex-1">
+        <UProgress size="2xl" animation="swing" :ui="{progress: {color: 'bg-slate-900'}}"/>
+        <span class="hidden">Caricamento...</span>
       </div>
     </div>
   </section>
@@ -47,5 +46,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped></style>

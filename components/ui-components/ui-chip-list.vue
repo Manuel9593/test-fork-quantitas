@@ -1,17 +1,16 @@
 <template>
-  <ul class="m-0 list-unstyled text-center">
+  <ul class="m-0 list-none text-center">
     <li
       v-for="element in list"
       :key="element.id"
-      class="d-inline-block text-center mb-2"
+      class="gap-3 inline-block text-center mb-2"
     >
-      <small class="chip chip-primary chip-sm mx-2">
-        <ui-link
-          :to="{ name: 'cerca', params: { term: 'tutte', regions: 'italia', typology: element.slug }}"
-          :text="element.name"
-          :title="'Vedi tutte le strutture: ' + element.name"
-        />
-      </small>
+      <ui-chip-link
+        :to="{ name: 'cerca', params: { term: 'tutte', regions: 'italia', typology: element.slug }}"
+        :text="element.name"
+        :title="'Vedi tutte le strutture: ' + element.name"
+        class="px-3 mx-2"
+      />
     </li>
   </ul>
 </template>
@@ -31,9 +30,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.chip {
-  padding: 0 16px 2px 16px;
-}
-</style>
