@@ -1,9 +1,9 @@
 <template>
   <div>
     <main-header />
-    <main id="main" class="container-fluid">
+    <UContainer id="main" class="bg-yellow-50">
       <slot />
-    </main>
+    </UContainer>
     <main-footer />
   </div>
 </template>

@@ -1,7 +1,7 @@
 <template>
-  <div class="bg-primary">
+  <div class="bg-cyan-800">
     <header id="main-header" class="container-fluid">
-      <div class="row align-items-center">
+      <div class="row-auto items-center">
         <div class="col-12 col-sm">
           <p class="logo icon icon-logo-white my-3">
             <ui-link

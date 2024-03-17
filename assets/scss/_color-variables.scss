@@ -23,16 +23,16 @@ $white: #FFFFFF;
 $black: #000000;
 
 .bg-primary {
-  background-color: #365c77 !important;
+  background-color: #365c77 #{!important};
 }
 .bg-primary-dark {
-  background-color: $primary-dark !important;
+  background-color: $primary-dark #{!important};
 }
 .bg-primary-darker {
-  background-color: $primary-darker !important;
+  background-color: $primary-darker #{!important};
 }
 .bg-primary-light {
-  background-color: $primary-light !important;
+  background-color: $primary-light #{!important};
 }
 .bg-primary-lighter {
   background-color: $primary-lighter;

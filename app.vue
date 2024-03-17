@@ -5,3 +5,7 @@
     </NuxtLayout>
   </div>
 </template>
+
+<script lang="ts" setup>
+document
+</script>

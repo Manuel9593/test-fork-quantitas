@@ -10,7 +10,11 @@ export default defineNuxtComponent({
       term: this.$route.params.term,
       regions: this.$route.params.regions,
       typology: this.$route.params.typology,
-      level: this.$route.params.level
+      level: this.$route.params.level,
+      tabItems: [
+        { label: "Tabella", content: "Tabella" },
+        { label: "Griglia", content: "Griglia" }
+      ]
     };
   },
   setup() {
@@ -23,7 +27,7 @@ export default defineNuxtComponent({
     return {
       facilities,
       pending
-    };
+    }
   },
   computed: {
     isListView() {
@@ -38,9 +42,16 @@ export default defineNuxtComponent({
     getSearchedTerm() {
       const searched_term =
         this.term instanceof Array ? this.term.join(" ") : this.term;
+      const searched_term =
+        this.term instanceof Array ? this.term.join(" ") : this.term;
       return !searched_term ? "tutte" : searched_term;
     },
     getSearchedRegions(): string[] {
+      return !this.regions
+        ? ["italia"]
+        : typeof this.regions === "string"
+        ? this.regions.split(",")
+        : this.regions;
       return !this.regions
         ? ["italia"]
         : typeof this.regions === "string"
@@ -65,6 +76,9 @@ export default defineNuxtComponent({
           regionsArray = regionsArray.split(",");
         }
         regionsArray.forEach(async (region) => {
+          const regionName = this.fetchedRegions.find(
+            (e: RegionType) => e.slug === region
+          );
           const regionName = this.fetchedRegions.find(
             (e: RegionType) => e.slug === region
           );
@@ -96,6 +110,7 @@ export default defineNuxtComponent({
     },
     filterByTypology(typology: string) {
       this.typology = typology;
+      this.typology = typology;
       let regionsParam = this.getSearchedRegionsText || "italia";
       navigateTo(
         "/facilities/" +
@@ -116,6 +131,14 @@ export default defineNuxtComponent({
       <ui-search-form :searched-term="getSearchedTerm" />
       <h1 class="my-4 h2 fw-light">
         <strong>{{ facilities ? facilities.length : 0 }}</strong>
+        {{
+          facilities
+            ? facilities.length === 1
+              ? "risultato"
+              : "risultati"
+            : "risultato"
+        }}
+        per «{{ term }}»
         {{
           facilities
             ? facilities.length === 1
@@ -156,6 +179,19 @@ export default defineNuxtComponent({
         </div>
       </div>
     </header>
+    <div>
+      <UTabs
+        :items="tabItems"
+        :ui="{
+          list: {
+            background: 'bg-inherit', tab: {
+              active: 'text-gray-900 dark:text-black dark:font-medium'
+            }
+          }
+        }"
+      >
+      </UTabs>
+    </div>
     <ul class="nav nav-tabs auto mb-4">
       <li class="nav-item">
         <ui-button
@@ -202,105 +238,6 @@ export default defineNuxtComponent({
     </div>
   </section>
 </template>
-<script lang="ts" setup>
-const route = useRoute()
-const { data: facilities, pending } = await useFetch<FacilityType[]>(
-  `/api/facilities/${route.params.term?.toString()}/${route.params.regions?.toString()}/${route.params.typology?.toString()}`
-);
-</script>
-
-<script lang="ts">
-import FacilityType from "~/types/prismaTypes/facilityType";
-import TypologyType from "~/types/prismaTypes/typologyType";
-import RegionType from "~/types/prismaTypes/regionType";
-import { useStore } from "~/composables/store";
-const store = useStore();
-export default defineNuxtComponent({
-  data() {
-    console.log(this.$route.params.regions)
-    return {
-      term: this.$route.params.term,
-      regions: this.$route.params.regions,
-      typology: this.$route.params.typology,
-      level: this.$route.params.level,
-    };
-  },
-  computed: {
-    isListView() {
-      return store.getIsListView.value;
-    },
-    fetchedRegions() {
-      return store.getRegions.value;
-    },
-    fetchedTypologies() {
-      return store.getTypologies.value;
-    },
-    getSearchedTerm() {
-      const searched_term = this.term instanceof Array ? this.term.join(" ") : this.term;
-      return !searched_term ? "tutte" : searched_term;
-    },
-    getSearchedRegions(): string[] {
-      return !this.regions || this.regions.length ? ["italia"] : (typeof this.regions === "string" ? this.regions.split(",") : this.regions);
-    },
-    getSearchedTypologyText() {
-      let text = "";
-      if (this.typology && this.fetchedTypologies) {
-        const selectedTypology = this.fetchedTypologies.find(
-          (e: TypologyType) => e.slug === this.typology
-        );
-        if (selectedTypology) text = selectedTypology.name;
-      }
-      return text;
-    },
-    getSearchedRegionsText() {
-      const searchedRegionsText: string[] = [];
-      if (this.regions && this.regions !== "italia") {
-        let regionsArray = this.regions;
-        if (typeof regionsArray === "string") {
-          regionsArray = regionsArray.split(",");
-        }
-        regionsArray.forEach(async (region) => {
-          const regionName = this.fetchedRegions.find((e: RegionType) => e.slug === region);
-          if (regionName) searchedRegionsText.push(regionName.name);
-        });
-        return searchedRegionsText.toString();
-      }
-      return null;
-    }
-  },
-  methods: {
-    encodeURI(string: string) {
-      return encodeURIString(string, "+");
-    },
-    changeResultsView(val: boolean) {
-      store.setIsListView(val);
-    },
-    filterByRegions(regions: string[]) {
-      regions = this.getSearchedRegions.length ? this.getSearchedRegions : ["italia"];
-      return this.$router.push(
-        "/facilities/" +
-          this.encodeURI(this.getSearchedTerm) +
-          "/" +
-          regions +
-          "/" +
-          this.typology
-      );
-    },
-    filterByTypology(typology: string) {
-      this.typology = typology
-      let regionsParam = this.getSearchedRegionsText || "italia";
-      return this.$router.push(
-        "/facilities/" +
-          this.encodeURI(this.getSearchedTerm) +
-          "/" +
-          regionsParam +
-          "/" +
-          typology
-      );
-    }
-  }
-});
-</script>
 
 <style lang="scss" scoped>
 header {

@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-primary-dark mt-5">
+  <div class="bg-cyan-800 mt-5">
     <footer id="main-footer" class="container-fluid">
       <div class="row align-items-center border-bottom">
         <div class="col-12 col-sm">

@@ -1,10 +1,12 @@
 <template>
-  <NuxtLink
+  <UButton
+    color="white"
+    variant="outline"
     :to="to"
     :title="title"
   >
     {{ text }}
-  </NuxtLink>
+  </UButton>
 </template>
 
 <script lang="ts">

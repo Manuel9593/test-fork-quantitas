@@ -1,22 +1,17 @@
 <template>
-  <button
+  <UButton
     :type="submit ? 'submit' : 'button'"
     :title="title"
+    :label="text"
+    color="blue"
   >
-    <span
-      :class="hasIcon ? icon : ''"
-    >
+    <template #leading>
       <span
-        v-if="visuallyHidden"
-        class="visually-hidden"
+        :class="hasIcon ? icon : ''"
       >
-        {{ text }}
       </span>
-      <span v-else>
-        {{ text }}
-      </span>
-    </span>
-  </button>
+    </template>
+  </UButton>
 </template>
 
 <script lang="ts">

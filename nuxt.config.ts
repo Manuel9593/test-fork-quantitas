@@ -20,6 +20,10 @@ export default defineNuxtConfig({
       link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
     }
   },
+  colorMode: {
+    preference: 'light',
+    classSuffix: ''
+  },
   ssr: false,
   dev: process.env.NODE_ENV !== "production",
   devtools: {
@@ -52,7 +56,8 @@ export default defineNuxtConfig({
     "@nuxtjs/eslint-module",
     "@nuxt/devtools",
     "@kgierke/nuxt-basic-auth",
-    "@nuxt/ui"
+    "@nuxt/ui",
+    "@nuxtjs/color-mode"
   ],
   css: ["@/assets/scss/style.scss"],
   eslint: {
@@ -66,6 +71,10 @@ export default defineNuxtConfig({
         password: process.env.BASIC_SECRET || ""
       }
     ]
+  },
+  ui: {
+    global: true,
+    icons: ['mdi', 'simple-icons']
   },
   vite: {
     css: {

@@ -13,15 +13,18 @@
       <b>Cerca tra le strutture culturali italiane</b>
     </label>
     <div class="form-group row">
-      <div class="search-form-outline col-6">
-        <input
+      <div class="search-form-outline col-auto">
+        <UInput
           id="facility-search"
           v-model="searchTerm"
           name="facility-search"
           type="search"
           placeholder="Cerca direzioni, istituti, soprintendenze, luoghi della cultura, ecc."
-          class="search-form-control"
-        >
+          class="search-form-control text-black"
+          size="xl"
+          color="white"
+          variant="outline"
+        />
       </div>
       <ui-button
         class="btn btn-primary search-form-btn col-auto"
@@ -87,8 +90,8 @@ export default {
   }
 
   input:focus {
-    border-color: #ff9900 !important;
-    box-shadow: 0 0 0 2px #ff9900 !important;
+    border-color: #ff9900 #{!important};
+    box-shadow: 0 0 0 2px #ff9900 #{!important};
   }
 }
 </style>

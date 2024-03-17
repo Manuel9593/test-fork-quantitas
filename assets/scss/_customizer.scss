@@ -46,7 +46,7 @@ main#main, header#main-header, footer#main-footer {
     background-color: $secondary;
   }
   &-link.active {
-    background-color: $secondary-light !important;
+    background-color: $secondary-light #{!important};
     border-width: 4px;
   }
 }

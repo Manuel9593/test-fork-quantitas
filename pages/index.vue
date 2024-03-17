@@ -157,144 +157,146 @@ export default {
 </script>
 
 <template>
-  <section>
-    <header>
-      <h1 class="text-center mt-5">
-        Benvenuto nella Digital Library
-      </h1>
-    </header>
-    <div class="mb-5 search-form-wrapper">
-      <ui-search-form />
-      <label class="visually-hidden">
-
-        <b>Cerca per tipo</b>
-      </label>
-      <ui-chip-list
-        class="mt-4"
-        :list="typologies"
-      />
-    </div>
-    <div class="row">
-      <div class="col-12 col-md-8 mb-5">
-        <div id="grafico-list" style="margin-top: 5rem">
-          <div v-for="graphObj in grafici" :key="graphObj.question" style="margin-bottom: 6rem">
-            <h3 class="h5">
-              {{ graphObj.title }}
-            </h3>
-            <p>{{ graphObj.description }}</p>
-            <div v-if="graphObj.type === 'bar'">
-              <div v-for="grafico in graphObj.data" :key="grafico.id" style="margin-bottom: 3rem">
-                <p class="text-center text-100" style="font-size: smaller">
-                  {{ grafico.title }}
-                </p>
-                <!-- <div v-if="grafico.options !== undefined">
+  <div>
+    <section>
+      <header>
+        <h1 class="text-center text-3xl mt-5 font-extrabold">
+          Benvenuto nella Digital Library
+        </h1>
+      </header>
+      <div class="mb-5 search-form-wrapper">
+        <ui-search-form />
+        <label class="visually-hidden">
+  
+          <b>Cerca per tipo</b>
+        </label>
+        <ui-chip-list
+          class="mt-4"
+          :list="typologies"
+        />
+      </div>
+      <div class="row">
+        <div class="col-12 col-md-8 mb-5">
+          <div id="grafico-list" style="margin-top: 5rem">
+            <div v-for="graphObj in grafici" :key="graphObj.question" style="margin-bottom: 6rem">
+              <h3 class="h5">
+                {{ graphObj.title }}
+              </h3>
+              <p>{{ graphObj.description }}</p>
+              <div v-if="graphObj.type === 'bar'">
+                <div v-for="grafico in graphObj.data" :key="grafico.id" style="margin-bottom: 3rem">
+                  <p class="text-center text-100" style="font-size: smaller">
+                    {{ grafico.title }}
+                  </p>
+                  <!-- <div v-if="grafico.options !== undefined">
+                    <div v-if="grafico.percentage">
+                      <Bar
+                        :data="grafico.data"
+                        :options="barPercentageOptions"
+                      />
+                    </div>
+                    <div v-else>
+                      <Bar
+                        :data="grafico.data"
+                        :options="barChartOptions"
+                      />
+                    </div>
+                  </div> -->
+                  <div v-if="grafico.bigNumbers">
+                    <Bar
+                      :data="grafico.data"
+                      :options="bigNumbersOptions"
+  
+                    />
+                  </div>
+                  <div v-else-if="grafico.percentage">
+                    <div v-if="grafico.separator">
+                      <Bar
+                        :data="grafico.data"
+                        :options="separatorPercentageOptions"
+                      />
+                    </div>
+                    <div v-else>
+                      <Bar
+                        :data="grafico.data"
+                        :options="barPercentageOptions"
+                      />
+                    </div>
+                  </div>
+                  <div v-else>
+                    <div v-if="grafico.separator">
+                      <Bar
+                        :data="grafico.data"
+                        :options="barSeparatorOptions"
+                      />
+                    </div>
+                    <div v-else>
+                      <Bar
+                        :data="grafico.data"
+                        :options="barChartOptions"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div v-else-if="graphObj.type === 'doughnut'">
+                <div v-for="grafico in graphObj.data" :key="grafico.id" style="margin-bottom: 3rem">
+                  <p v-if="grafico.title !== undefined" class="text-center text-100" style="font-size: larger; margin-top: 1em; margin-bottom: 0.5em">
+                    {{ grafico.title }}
+                  </p>
                   <div v-if="grafico.percentage">
-                    <Bar
+                    <Doughnut
                       :data="grafico.data"
-                      :options="barPercentageOptions"
+                      :options="doughnutPercentageOptions"
                     />
                   </div>
                   <div v-else>
-                    <Bar
+                    <Doughnut
                       :data="grafico.data"
-                      :options="barChartOptions"
+                      :options="doughnutOptions"
                     />
                   </div>
-                </div> -->
-                <div v-if="grafico.bigNumbers">
-                  <Bar
-                    :data="grafico.data"
-                    :options="bigNumbersOptions"
-
-                  />  
-                </div>  
-                <div v-else-if="grafico.percentage">
-                  <div v-if="grafico.separator">
-                    <Bar
-                      :data="grafico.data"
-                      :options="separatorPercentageOptions"
-                    />  
-                  </div>  
-                  <div v-else>
-                    <Bar
-                      :data="grafico.data"
-                      :options="barPercentageOptions"
-                    />  
-                  </div>  
-                </div>  
-                <div v-else>
-                  <div v-if="grafico.separator">
-                    <Bar
-                      :data="grafico.data"
-                      :options="barSeparatorOptions"
-                    />  
-                  </div>  
-                  <div v-else>
-                    <Bar
-                      :data="grafico.data"
-                      :options="barChartOptions"
-                    />  
-                  </div>  
-                </div>  
-              </div>  
-            </div>  
-            <div v-else-if="graphObj.type === 'doughnut'">
-              <div v-for="grafico in graphObj.data" :key="grafico.id" style="margin-bottom: 3rem">
-                <p v-if="grafico.title !== undefined" class="text-center text-100" style="font-size: larger; margin-top: 1em; margin-bottom: 0.5em">
-                  {{ grafico.title }}
-                </p>  
-                <div v-if="grafico.percentage">
-                  <Doughnut
-                    :data="grafico.data"
-                    :options="doughnutPercentageOptions"
-                  />  
-                </div>  
-                <div v-else>
-                  <Doughnut
-                    :data="grafico.data"
-                    :options="doughnutOptions"
-                  />  
-                </div>  
-                <div v-if="grafico.acronyms" class="text-center text-100" style="font-size: smaller; margin-top: 1em">
-                  <div v-for="acronym in grafico.acronyms" :key="acronym">
-                    <p style="margin-bottom: 0">
-                      {{ acronym }}
-                    </p>  
-                  </div>  
-                </div>  
-              </div>  
-            </div>  
-          </div>  
-        </div>  
-      </div>  
-      <div class="col-12 col-md-4">
-        <h3 class="h5">
-          Albero amministrativo delle strutture culturali italiane
-        </h3>  
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut auctor lacus. Curabitur facilisis suscipit sodales. Nunc eget sapien porttitor, ornare velit a, vestibulum massa.
-        </p>  
-        <div
-          v-if="dataTree.length"
-          class="bg-white border border-secondary p-3"
-        >  
-          <DataTree
-            :data-tree="dataTree"
-          />  
-        </div>  
-        <div
-          v-else
-          class="row align-items-center loader-wrapper"
-        >  
-          <div class="col">
-            <div class="progress-spinner progress-spinner-active m-auto">
-              <span class="visually-hidden">Caricamento...</span>
-            </div>  
-          </div>  
-        </div>  
-      </div>  
-    </div>  
-  </section>    
+                  <div v-if="grafico.acronyms" class="text-center text-100" style="font-size: smaller; margin-top: 1em">
+                    <div v-for="acronym in grafico.acronyms" :key="acronym">
+                      <p style="margin-bottom: 0">
+                        {{ acronym }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <h3 class="h5">
+            Albero amministrativo delle strutture culturali italiane
+          </h3>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut auctor lacus. Curabitur facilisis suscipit sodales. Nunc eget sapien porttitor, ornare velit a, vestibulum massa.
+          </p>
+          <div
+            v-if="dataTree.length"
+            class="bg-white border border-secondary p-3"
+          >
+            <DataTree
+              :data-tree="dataTree"
+            />
+          </div>
+          <div
+            v-else
+            class="row align-items-center loader-wrapper"
+          >
+            <div class="col">
+              <div class="progress-spinner progress-spinner-active m-auto">
+                <span class="visually-hidden">Caricamento...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
 </template>
 
 <style lang="scss" scoped>

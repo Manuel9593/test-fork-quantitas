@@ -11,76 +11,76 @@
  $icon-logo-small: '@/img/icdp-logo-small-white.svg';
  $icon-logo-mic: '@/img/mic-logo-white.svg';
 
- $icon-collapse: $str + 'it-collapse.svg';
- $icon-expand: $str + 'it-expand.svg';
- $icon-search: $str + 'it-search.svg';
- $icon-map-marker: $str + 'it-map-marker.svg';
- $icon-external-link: $str + 'it-external-link.svg';
- $icon-pa: $str + 'it-pa.svg';
- $icon-manage: $str + 'it-manage.svg';
- $icon-plus-circle: $str + 'it-plus-circle.svg';
- $icon-minus-circle: $str + 'it-minus-circle.svg';
- $icon-plus: $str + 'it-plus.svg';
- $icon-minus: $str + 'it-minus.svg';
+$icon-collapse: $str + "it-collapse.svg";
+$icon-expand: $str + "it-expand.svg";
+$icon-search: $str + "it-search.svg";
+$icon-map-marker: $str + "it-map-marker.svg";
+$icon-external-link: $str + "it-external-link.svg";
+$icon-pa: $str + "it-pa.svg";
+$icon-manage: $str + "it-manage.svg";
+$icon-plus-circle: $str + "it-plus-circle.svg";
+$icon-minus-circle: $str + "it-minus-circle.svg";
+$icon-plus: $str + "it-plus.svg";
+$icon-minus: $str + "it-minus.svg";
 
- /**
+/**
  * Icons classes
  */
- .icon {
-   background-repeat: no-repeat;
-   display: inline-block;
+.icon {
+  background-repeat: no-repeat;
+  display: inline-block;
 
-   &-none {
-     background: none !important;
-     padding-left: 0 !important;
-     width: 0;
-     height: 0;
-   }
-   &-in-line {
-     padding-left: 32px;
-     display: inline;
-   }
+  &-none {
+    background: none #{!important};
+    padding-left: 0 #{!important};
+    width: 0;
+    height: 0;
+  }
+  &-in-line {
+    padding-left: 32px;
+    display: inline;
+  }
 
-   &-logo-white {
+  &-logo-white {
     background-image: url($icon-logo);
-   }
-   &-logo-small-white {
+  }
+  &-logo-small-white {
     background-image: url($icon-logo-small);
-   }
-   &-mic-logo-white {
+  }
+  &-mic-logo-white {
     background-image: url($icon-logo-mic);
-   }
-   &-search {
+  }
+  &-search {
     background-image: url($icon-search);
-   }
-   &-map-marker {
+  }
+  &-map-marker {
     background-image: url($icon-map-marker);
-   }
-   &-external-link {
+  }
+  &-external-link {
     background-image: url($icon-external-link);
-   }
-   &-pa {
+  }
+  &-pa {
     background-image: url($icon-pa);
-   }
-   &-manage {
+  }
+  &-manage {
     background-image: url($icon-manage);
-   }
-   &-collapse {
+  }
+  &-collapse {
     background-image: url($icon-collapse);
-   }
-   &-expand {
+  }
+  &-expand {
     background-image: url($icon-expand);
-   }
-   &-minus-circle {
+  }
+  &-minus-circle {
     background-image: url($icon-minus-circle);
-   }
-   &-plus-circle {
+  }
+  &-plus-circle {
     background-image: url($icon-plus-circle);
-   }
-   &-minus {
+  }
+  &-minus {
     background-image: url($icon-minus);
-   }
-   &-plus {
+  }
+  &-plus {
     background-image: url($icon-plus);
-   }
- }
+  }
+}
