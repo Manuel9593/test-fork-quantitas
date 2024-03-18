@@ -2,7 +2,7 @@
   <form
     action="/facilities/"
     method="GET"
-    class="flex flex-col gap-3 mx-0 my-3"
+    class="flex flex-col gap-3 my-3"
     @submit.stop.prevent="submit()"
   >
     <label
@@ -20,7 +20,7 @@
           name="facility-search"
           type="search"
           placeholder="Cerca direzioni, istituti, soprintendenze, luoghi della cultura, ecc."
-          class="search-form-control text-black"
+          class="text-black"
           size="xl"
           color="white"
           variant="outline"

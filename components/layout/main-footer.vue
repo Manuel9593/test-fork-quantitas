@@ -12,6 +12,7 @@
               alt="Digital Library. Istituto centrale per la digitalizzazione del patrimonio culturale"
               width="180px"
               height="60px"
+              class="inline-flex"
             />
           </ui-image-link>
         </div>
